@@ -26,6 +26,11 @@ jobs:
           path: ~/.composer/cache
           key: composer-cache-php8
 
+      - name: configure composer config key
+        run: composer config --global github-oauth.github.com "$TOKEN_SECRET"
+        env:
+          TOKEN_SECRET: ${{COMPOSER_GITHUB_TOKEN_SECRET}}
+
       - name: Composer install
         run: composer install --no-progress --no-interaction --prefer-dist --optimize-autoloader
 
@@ -61,6 +66,11 @@ jobs:
         with:
           path: ~/.composer/cache
           key: composer-cache-php${{ matrix.php }}
+
+      - name: configure composer config key
+        run: composer config --global github-oauth.github.com "$TOKEN_SECRET"
+        env:
+          TOKEN_SECRET: ${{COMPOSER_GITHUB_TOKEN_SECRET}}
 
       - name: Composer install
         run: composer install --no-progress --no-interaction

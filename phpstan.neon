@@ -1,0 +1,9 @@
+parameters:
+    paths:
+        - src
+    level: 5
+    checkMissingIterableValueType: false
+    excludePaths:
+        - src/*/*/Database/Factories/*
+        - src/*/*/Tests/*
+

@@ -1,0 +1,61 @@
+{
+    "name": "laravel-doctrine/passport",
+    "description": "Laravel Passport Integration to Doctrine ORM",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Laravel\\Passport\\PassportServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "LaravelDoctrine\\Passport\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\LaravelDoctrine\\Passport\\": "tests/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kilip/laravel-doctrine-orm"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "laravel-doctrine/orm": "dev-test",
+        "laravel/passport": "^9.0|^10.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.0|^6.0",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan": "^0.12.94",
+        "phpstan/phpstan-doctrine": "^0.12.42",
+        "phpstan/phpstan-phpunit": "^0.12.21",
+        "phpunit/phpunit": "^8.0|9.0",
+        "psalm/plugin-laravel": "^1.5",
+        "psalm/plugin-phpunit": "^0.16.1",
+        "vimeo/psalm": "^4.9"
+    }
+}

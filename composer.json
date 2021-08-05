@@ -44,7 +44,9 @@
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "laravel-doctrine/orm": "dev-test",
+        "gedmo/doctrine-extensions": "^3.1",
+        "laravel-doctrine/extensions": "^1.4",
+        "laravel-doctrine/orm": "dev-test as 1.7",
         "laravel/passport": "^9.0|^10.0"
     },
     "require-dev": {

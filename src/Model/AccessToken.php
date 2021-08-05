@@ -13,6 +13,30 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Model;
 
-class AccessToken
+use Doctrine\ORM\Mapping as ORM;
+
+trait AccessToken
 {
+    /**
+     * @ORM\Column(type="string", length=100)
+     * @ORM\Id()
+     */
+    protected string $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Model\UserInterface")
+     */
+    protected ?UserInterface $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Model\ClientInterface"
+     */
+    protected ClientInterface $client;
+
+    protected ?string $name;
+
+    protected ?array $scopes = null;
+
+    protected bool $revoked;
+
 }

@@ -15,20 +15,18 @@ namespace LaravelDoctrine\Passport\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
-use LaravelDoctrine\Passport\Contracts\Model\Client;
-use LaravelDoctrine\Passport\Contracts\Model\User;
 
 trait AccessTokenTrait
 {
-    use Timestamps;
-    use RevokableTrait;
-    use ScopableTrait;
     use HasClientTrait;
     use HasUserTrait;
+    use RevokableTrait;
+    use ScopableTrait;
+    use Timestamps;
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @ORM\Id()
+     * @ORM\Id
      */
     protected string $id;
 

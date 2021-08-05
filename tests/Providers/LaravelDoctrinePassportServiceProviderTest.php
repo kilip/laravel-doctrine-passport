@@ -16,9 +16,9 @@ namespace Tests\LaravelDoctrine\Passport\Providers;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider;
 use LaravelDoctrine\Extensions\Timestamps\TimestampableExtension;
+use LaravelDoctrine\Passport\Model;
 use LaravelDoctrine\Passport\Providers\LaravelDoctrinePassportServiceProvider;
 use Tests\LaravelDoctrine\Passport\TestCase;
-use LaravelDoctrine\Passport\Model;
 
 /**
  * @covers \LaravelDoctrine\Passport\Providers\LaravelDoctrinePassportServiceProvider

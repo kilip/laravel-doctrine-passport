@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of the Laravel Doctrine Passport project.
+ *
+ * (c) Anthonius Munthi <https://itstoni.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace Tests\LaravelDoctrine\Passport\Model;
 
 use LaravelDoctrine\Passport\Contracts\Model\Client;
@@ -25,10 +36,10 @@ class AccessTokenTest extends TestCase
      */
     private $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->client = $this->createMock(Client::class);
-        $this->user = $this->createMock(User::class);
+        $this->user   = $this->createMock(User::class);
 
         $this->model = new AccessToken(
             'identifier',
@@ -41,19 +52,19 @@ class AccessTokenTest extends TestCase
 
     /**
      * @param string $name
-     * @param mixed $expectedValue
+     * @param mixed  $expectedValue
      * @dataProvider getMutableProperties
      */
-    public function testItsPropertyShouldBeMutable(string $name, $expectedValue)
+    public function test_its_property_should_be_mutable(string $name, $expectedValue)
     {
-        $prefix = substr($name,0, 2) == 'is' ? '':'get';
-        $result = call_user_func([$this->model, $prefix.$name]);
-        if(!is_object($result)){
+        $prefix = 'is' == substr($name, 0, 2) ? '' : 'get';
+        $result = \call_user_func([$this->model, $prefix.$name]);
+        if ( ! \is_object($result)) {
             $this->assertSame(
                 $expectedValue,
                 $result
             );
-        }else{
+        } else {
             $this->assertInstanceOf(
                 $expectedValue,
                 $result
@@ -69,7 +80,7 @@ class AccessTokenTest extends TestCase
             ['user', User::class],
             ['name', 'name'],
             ['scopes', ['scopes']],
-            ['isRevoked', false]
+            ['isRevoked', false],
         ];
     }
 

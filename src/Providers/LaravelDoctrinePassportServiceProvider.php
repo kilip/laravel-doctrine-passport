@@ -23,7 +23,7 @@ class LaravelDoctrinePassportServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
-        Passport::$tokenModel = AccessToken::class;
+        Passport::$tokenModel    = AccessToken::class;
         Passport::$authCodeModel = AuthCode::class;
     }
 
@@ -38,16 +38,16 @@ class LaravelDoctrinePassportServiceProvider extends ServiceProvider
 
     private function configureDoctrine(): void
     {
-        $existing = (array)config('doctrine');
+        $existing = (array) config('doctrine');
 
         $config = array_merge_recursive($existing, [
             'extensions' => [
-                Extensions\Timestamps\TimestampableExtension::class
-            ]
+                Extensions\Timestamps\TimestampableExtension::class,
+            ],
         ]);
 
         config([
-            'doctrine' => $config
+            'doctrine' => $config,
         ]);
     }
 }

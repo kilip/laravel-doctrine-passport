@@ -15,6 +15,7 @@ namespace Tests\LaravelDoctrine\Passport;
 
 use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
+use LaravelDoctrine\Passport\Providers\LaravelDoctrinePassportServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
@@ -24,6 +25,7 @@ class TestCase extends BaseTestCase
         return [
             DoctrineServiceProvider::class,
             LaravelPassportServiceProvider::class,
+            LaravelDoctrinePassportServiceProvider::class,
         ];
     }
 }

@@ -14,7 +14,38 @@ declare(strict_types=1);
 namespace LaravelDoctrine\Passport\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
+use LaravelDoctrine\Extensions;
+use LaravelDoctrine\Passport\Model\AccessToken;
 
 class LaravelDoctrinePassportServiceProvider extends ServiceProvider
 {
+    public function boot(): void
+    {
+        Passport::$tokenModel = AccessToken::class;
+    }
+
+    public function register(): void
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/doctrine-passport.php',
+            'doctrine_passport'
+        );
+        $this->configureDoctrine();
+    }
+
+    private function configureDoctrine(): void
+    {
+        $existing = (array)config('doctrine');
+
+        $config = array_merge_recursive($existing, [
+            'extensions' => [
+                Extensions\Timestamps\TimestampableExtension::class
+            ]
+        ]);
+
+        config([
+            'doctrine' => $config
+        ]);
+    }
 }

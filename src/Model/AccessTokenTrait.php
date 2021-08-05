@@ -21,6 +21,10 @@ use LaravelDoctrine\Passport\Contracts\Model\User;
 trait AccessTokenTrait
 {
     use Timestamps;
+    use RevokableTrait;
+    use ScopableTrait;
+    use HasClientTrait;
+    use HasUserTrait;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -29,25 +33,9 @@ trait AccessTokenTrait
     protected string $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Model\UserInterface")
+     * @ORM\Column(type="string", nullable=true)
      */
-    protected ?User $user;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Model\ClientInterface"
-     */
-    protected Client $client;
-
     protected ?string $name;
-
-    protected ?array $scopes = null;
-
-    protected bool $revoked;
-
-    public function revoke(): void
-    {
-        $this->revoked = true;
-    }
 
     /**
      * @return string
@@ -58,42 +46,10 @@ trait AccessTokenTrait
     }
 
     /**
-     * @return User|null
-     */
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    /**
-     * @return Client
-     */
-    public function getClient(): Client
-    {
-        return $this->client;
-    }
-
-    /**
      * @return string|null
      */
     public function getName(): ?string
     {
         return $this->name;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getScopes(): ?array
-    {
-        return $this->scopes;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRevoked(): bool
-    {
-        return $this->revoked;
     }
 }

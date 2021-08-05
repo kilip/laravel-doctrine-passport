@@ -17,12 +17,14 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 use LaravelDoctrine\Extensions;
 use LaravelDoctrine\Passport\Model\AccessToken;
+use LaravelDoctrine\Passport\Model\AuthCode;
 
 class LaravelDoctrinePassportServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
         Passport::$tokenModel = AccessToken::class;
+        Passport::$authCodeModel = AuthCode::class;
     }
 
     public function register(): void

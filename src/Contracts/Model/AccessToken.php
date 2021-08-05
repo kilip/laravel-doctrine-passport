@@ -2,9 +2,11 @@
 
 namespace LaravelDoctrine\Passport\Contracts\Model;
 
-use DateTime;
-
-interface AccessToken
+interface AccessToken extends
+    Revokable,
+    Scopable,
+    HasClient,
+    HasUser
 {
     public function revoke(): void;
 
@@ -12,19 +14,4 @@ interface AccessToken
      * @return string
      */
     public function getId(): string;
-
-    /**
-     * @return User|null
-     */
-    public function getUser(): ?User;
-
-    /**
-     * @return Client
-     */
-    public function getClient(): Client;
-
-    /**
-     * @return array|null
-     */
-    public function getScopes(): ?array;
 }

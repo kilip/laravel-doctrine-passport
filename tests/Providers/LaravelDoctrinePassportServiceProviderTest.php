@@ -47,5 +47,9 @@ class LaravelDoctrinePassportServiceProviderTest extends TestCase
             Model\AccessToken::class,
             Passport::$tokenModel
         );
+        $this->assertSame(
+            Model\AuthCode::class,
+            Passport::$authCodeModel
+        );
     }
 }

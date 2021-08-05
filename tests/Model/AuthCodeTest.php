@@ -5,36 +5,44 @@ namespace Tests\LaravelDoctrine\Passport\Model;
 use LaravelDoctrine\Passport\Contracts\Model\Client;
 use LaravelDoctrine\Passport\Contracts\Model\User;
 use LaravelDoctrine\Passport\Model\AccessToken;
+use LaravelDoctrine\Passport\Model\AuthCode;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \LaravelDoctrine\Passport\Model\AccessToken
- * @covers \LaravelDoctrine\Passport\Model\RevokableTrait
+ * @covers \LaravelDoctrine\Passport\Model\AuthCode
+ * @covers \LaravelDoctrine\Passport\Model\ExpirableTrait
+ * @covers \LaravelDoctrine\Passport\Model\HasClientTrait
+ * @covers \LaravelDoctrine\Passport\Model\HasUserTrait
+ * @covers \LaravelDoctrine\Passport\Model\ScopableTrait
  */
-class AccessTokenTest extends TestCase
+class AuthCodeTest extends TestCase
 {
-    private AccessToken $model;
-
     /**
      * @var Client|mixed|\PHPUnit\Framework\MockObject\MockObject
      */
     private $client;
-
     /**
      * @var User|mixed|\PHPUnit\Framework\MockObject\MockObject
      */
     private $user;
+    private AuthCode $model;
+
+    /**
+     * @var \DateTimeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
+     */
+    private $expiresAt;
 
     public function setUp(): void
     {
         $this->client = $this->createMock(Client::class);
         $this->user = $this->createMock(User::class);
+        $this->expiresAt = new \DateTimeImmutable();
 
-        $this->model = new AccessToken(
+        $this->model = new AuthCode(
             'identifier',
             $this->client,
+            $this->expiresAt,
             $this->user,
-            'name',
             ['scopes']
         );
     }
@@ -67,15 +75,9 @@ class AccessTokenTest extends TestCase
             ['id', 'identifier'],
             ['client', Client::class],
             ['user', User::class],
-            ['name', 'name'],
             ['scopes', ['scopes']],
-            ['isRevoked', false]
+            ['isRevoked', false],
+            ['expiresAt', \DateTimeInterface::class]
         ];
-    }
-
-    public function test_it_revoke_access_token()
-    {
-        $this->model->revoke();
-        $this->assertTrue($this->model->isRevoked());
     }
 }

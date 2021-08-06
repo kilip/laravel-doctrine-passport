@@ -6,4 +6,6 @@ parameters:
     excludePaths:
         - src/*/*/Database/Factories/*
         - src/*/*/Tests/*
+    ignoreErrors:
+        - '#Method [a-zA-Z0-9\\_]+::getRepository\(\) should return#'
 

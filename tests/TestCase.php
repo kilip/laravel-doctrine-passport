@@ -17,6 +17,7 @@ use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
 use LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider;
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
 use LaravelDoctrine\Passport\Providers\LaravelDoctrinePassportServiceProvider;
+use Mockery as m;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
@@ -29,5 +30,14 @@ class TestCase extends BaseTestCase
             LaravelPassportServiceProvider::class,
             LaravelDoctrinePassportServiceProvider::class,
         ];
+    }
+
+    protected function tearDown(): void
+    {
+        if ($container = \Mockery::getContainer()) {
+            $this->addToAssertionCount($container->mockery_getExpectationCount());
+        }
+        m::close();
+        parent::tearDown();
     }
 }

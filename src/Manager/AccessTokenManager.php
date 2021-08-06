@@ -138,10 +138,10 @@ class AccessTokenManager implements AccessTokenManagerContracts
     {
         $qb = $this->getRepository()->createQueryBuilder('t');
         $qb->where('t.revoked = :revoked')
-            ->andWhere('t.expires > :now')
+            ->andWhere('t.expiresAt > :now')
             ->andWhere('t.user = :user')
             ->andWhere('t.client = :client')
-            ->orderBy('t.expires|DESC')
+            ->orderBy('t.expiresAt', 'DESC')
             ->setParameter('revoked', false)
             ->setParameter('now', Carbon::now()->toDateTime())
             ->setParameter('user', $user->getId())

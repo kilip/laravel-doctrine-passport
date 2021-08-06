@@ -13,14 +13,25 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Providers;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 use LaravelDoctrine\Extensions;
+use LaravelDoctrine\Passport\Contracts\Manager as ManagerContracts;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
+use LaravelDoctrine\Passport\Manager;
 use LaravelDoctrine\Passport\Model;
+use Psr\Container\ContainerInterface;
 
 class LaravelDoctrinePassportServiceProvider extends ServiceProvider
 {
+    public function boot(): void
+    {
+        if (config('doctrine_passport.load_model', true)) {
+            $this->configureModels();
+        }
+    }
+
     public function register(): void
     {
         $this->mergeConfigFrom(
@@ -28,9 +39,7 @@ class LaravelDoctrinePassportServiceProvider extends ServiceProvider
             'doctrine_passport'
         );
 
-        if (config('doctrine_passport.load_model', true)) {
-            $this->configureModels();
-        }
+        $this->configureServices();
     }
 
     private function configureModels(): void
@@ -55,7 +64,10 @@ class LaravelDoctrinePassportServiceProvider extends ServiceProvider
             ],
         ]));
 
+        $userModel = (string) $config->get('doctrine_passport.models.user');
+
         $config->set($resolveKey, array_merge_recursive((array) $config->get($resolveKey, []), [
+            ModelContracts\User::class => $userModel,
             ModelContracts\AccessToken::class => Passport::$tokenModel,
             ModelContracts\AuthCode::class => Passport::$authCodeModel,
             ModelContracts\Client::class => Passport::$clientModel,
@@ -68,5 +80,23 @@ class LaravelDoctrinePassportServiceProvider extends ServiceProvider
         ]));
 
         $config->set('doctrine.gedmo.all_mappings', true);
+    }
+
+    /**
+     * @psalm-suppress InvalidStringClass
+     * @psalm-suppress MixedAssignment
+     * @psalm-suppress PossiblyInvalidCast
+     * @psalm-suppress MissingReturnType
+     */
+    private function configureServices(): void
+    {
+        $app                = $this->app;
+        $accessTokenManager = (string) config('doctrine_passport.access_token_manager_class', Manager\AccessTokenManager::class);
+        $app->singleton(ManagerContracts\AccessTokenManager::class,
+            function (ContainerInterface $container) use ($accessTokenManager) {
+                $em = $container->get(EntityManagerInterface::class);
+
+                return new $accessTokenManager($em, Passport::$tokenModel);
+            });
     }
 }

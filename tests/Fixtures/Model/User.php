@@ -13,6 +13,15 @@ declare(strict_types=1);
 
 namespace Tests\LaravelDoctrine\Passport\Fixtures\Model;
 
-class User
+use Doctrine\ORM\Mapping as ORM;
+use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
+use LaravelDoctrine\Passport\Model\Traits\IdentifiableTrait;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="oauth_users")
+ */
+class User implements ModelContracts\User
 {
+    use IdentifiableTrait;
 }

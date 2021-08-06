@@ -36,6 +36,9 @@
             "Tests\\LaravelDoctrine\\Passport\\": "tests/"
         }
     },
+    "scripts": {
+        "coverage": "@php ./vendor/bin/phpunit --coverage-text --coverage-html=build/logs/html"
+    },
     "repositories": [
         {
             "type": "github",

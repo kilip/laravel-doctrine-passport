@@ -11,26 +11,22 @@
 
 declare(strict_types=1);
 
-namespace LaravelDoctrine\Passport\Model;
+namespace LaravelDoctrine\Passport\Model\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 
-trait IdentifiableTrait
+trait ScopableTrait
 {
     /**
-     * @ORM\Column(type="bigint")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     *
-     * @var mixed|int|string|null
+     * @ORM\Column(type="array", nullable=true)
      */
-    protected $id;
+    protected ?array $scopes = null;
 
     /**
-     * @return int|mixed|string|null
+     * @return array|null
      */
-    public function getId()
+    public function getScopes(): ?array
     {
-        return $this->id;
+        return $this->scopes;
     }
 }

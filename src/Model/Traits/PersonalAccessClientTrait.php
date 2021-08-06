@@ -11,26 +11,20 @@
 
 declare(strict_types=1);
 
-namespace LaravelDoctrine\Passport\Model;
+namespace LaravelDoctrine\Passport\Model\Traits;
 
-use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
+use LaravelDoctrine\Passport\Contracts\Model\Client as ClientContract;
 
-trait AuthCodeTrait
+trait PersonalAccessClientTrait
 {
-    use ExpirableTrait;
     use HasClientTrait;
-    use HasUserTrait;
     use IdentifiableTrait;
-    use RevokableTrait;
-    use ScopableTrait;
     use Timestamps;
 
-    /**
-     * @ORM\Column(type="string", length=100)
-     * @ORM\Id
-     *
-     * @var string|int|mixed|null
-     */
-    protected $id;
+    public function __construct(
+        ClientContract $client
+    ) {
+        $this->client = $client;
+    }
 }

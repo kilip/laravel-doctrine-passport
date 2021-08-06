@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Contracts\Model;
 
-interface PersonalAccessClient extends Identifiable, HasClient
+interface RefreshToken extends Identifiable, Revokable, Expirable
 {
+    public function getAccessToken(): AccessToken;
 }

@@ -11,20 +11,17 @@
 
 declare(strict_types=1);
 
-namespace LaravelDoctrine\Passport\Model;
+namespace LaravelDoctrine\Passport\Model\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
-use LaravelDoctrine\Passport\Contracts\Model\Client;
-use LaravelDoctrine\Passport\Contracts\Model\User;
+use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContracts;
 
-trait AccessTokenTrait
+trait RefreshTokenTrait
 {
-    use HasClientTrait;
-    use HasUserTrait;
+    use ExpirableTrait;
     use IdentifiableTrait;
     use RevokableTrait;
-    use ScopableTrait;
     use Timestamps;
 
     /**
@@ -36,31 +33,28 @@ trait AccessTokenTrait
     protected $id;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Contracts\Model\AccessToken")
      */
-    protected ?string $name;
+    protected AccessTokenContracts $accessToken;
 
     public function __construct(
         string $id,
-        Client $client,
-        ?User $user,
-        ?string $name,
-        ?array $scopes,
+        AccessTokenContracts $accessToken,
+        \DateTimeImmutable $expiresAt,
         bool $revoked = false
-    ) {
-        $this->id      = $id;
-        $this->client  = $client;
-        $this->user    = $user;
-        $this->name    = $name;
-        $this->scopes  = $scopes;
+    )
+    {
+        $this->id = $id;
+        $this->accessToken = $accessToken;
+        $this->expiresAt = $expiresAt;
         $this->revoked = $revoked;
     }
 
     /**
-     * @return string|null
+     * @return AccessTokenContracts
      */
-    public function getName(): ?string
+    public function getAccessToken(): AccessTokenContracts
     {
-        return $this->name;
+        return $this->accessToken;
     }
 }

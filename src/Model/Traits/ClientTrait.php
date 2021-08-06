@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace LaravelDoctrine\Passport\Model;
+namespace LaravelDoctrine\Passport\Model\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\Passport\Contracts\Model\User;

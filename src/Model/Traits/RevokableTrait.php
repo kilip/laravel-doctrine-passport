@@ -11,23 +11,27 @@
 
 declare(strict_types=1);
 
-namespace LaravelDoctrine\Passport\Model;
+namespace LaravelDoctrine\Passport\Model\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use LaravelDoctrine\Passport\Contracts\Model\Client;
 
-trait HasClientTrait
+trait RevokableTrait
 {
     /**
-     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Model\ClientInterface"
+     * @ORM\Column(type="boolean")
      */
-    protected Client $client;
+    protected bool $revoked = false;
+
+    public function revoke(): void
+    {
+        $this->revoked = true;
+    }
 
     /**
-     * @return Client
+     * @return bool
      */
-    public function getClient(): Client
+    public function isRevoked(): bool
     {
-        return $this->client;
+        return $this->revoked;
     }
 }

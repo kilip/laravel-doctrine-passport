@@ -11,27 +11,26 @@
 
 declare(strict_types=1);
 
-namespace LaravelDoctrine\Passport\Model;
+namespace LaravelDoctrine\Passport\Model\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 
-trait RevokableTrait
+trait IdentifiableTrait
 {
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="bigint")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     *
+     * @var mixed|int|string|null
      */
-    protected bool $revoked = false;
-
-    public function revoke(): void
-    {
-        $this->revoked = true;
-    }
+    protected $id;
 
     /**
-     * @return bool
+     * @return int|mixed|string|null
      */
-    public function isRevoked(): bool
+    public function getId()
     {
-        return $this->revoked;
+        return $this->id;
     }
 }

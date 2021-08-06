@@ -16,6 +16,7 @@ namespace LaravelDoctrine\Passport\Model;
 use LaravelDoctrine\Passport\Contracts\Model\AuthCode as AuthCodeContracts;
 use LaravelDoctrine\Passport\Contracts\Model\Client;
 use LaravelDoctrine\Passport\Contracts\Model\User;
+use LaravelDoctrine\Passport\Model\Traits\AuthCodeTrait;
 
 /**
  * @psalm-suppress MissingConstructor

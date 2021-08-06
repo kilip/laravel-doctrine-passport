@@ -20,12 +20,12 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \LaravelDoctrine\Passport\Model\AccessToken
- * @covers \LaravelDoctrine\Passport\Model\RevokableTrait
- * @covers \LaravelDoctrine\Passport\Model\IdentifiableTrait
+ * @covers \LaravelDoctrine\Passport\Model\Traits\RevokableTrait
+ * @covers \LaravelDoctrine\Passport\Model\Traits\IdentifiableTrait
  */
 class AccessTokenTest extends TestCase
 {
-    private AccessToken $model;
+    use TestModelProperties;
 
     /**
      * @var Client|mixed|\PHPUnit\Framework\MockObject\MockObject
@@ -51,29 +51,7 @@ class AccessTokenTest extends TestCase
         );
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $expectedValue
-     * @dataProvider getMutableProperties
-     */
-    public function test_its_property_should_be_mutable(string $name, $expectedValue)
-    {
-        $prefix = 'is' == substr($name, 0, 2) ? '' : 'get';
-        $result = \call_user_func([$this->model, $prefix.$name]);
-        if ( ! \is_object($result)) {
-            $this->assertSame(
-                $expectedValue,
-                $result
-            );
-        } else {
-            $this->assertInstanceOf(
-                $expectedValue,
-                $result
-            );
-        }
-    }
-
-    public function getMutableProperties(): array
+    public function getTestMutableProperties(): array
     {
         return [
             ['id', 'identifier'],

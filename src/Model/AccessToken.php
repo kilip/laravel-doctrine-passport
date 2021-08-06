@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelDoctrine\Passport\Model;
 
 use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContract;
+use LaravelDoctrine\Passport\Model\Traits\AccessTokenTrait;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor

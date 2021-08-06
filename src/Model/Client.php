@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelDoctrine\Passport\Model;
 
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientContracts;
+use LaravelDoctrine\Passport\Model\Traits\ClientTrait;
 
 /**
  * @psalm-suppress MissingConstructor

@@ -20,13 +20,15 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \LaravelDoctrine\Passport\Model\AuthCode
- * @covers \LaravelDoctrine\Passport\Model\ExpirableTrait
- * @covers \LaravelDoctrine\Passport\Model\HasClientTrait
- * @covers \LaravelDoctrine\Passport\Model\HasUserTrait
- * @covers \LaravelDoctrine\Passport\Model\ScopableTrait
+ * @covers \LaravelDoctrine\Passport\Model\Traits\ExpirableTrait
+ * @covers \LaravelDoctrine\Passport\Model\Traits\HasClientTrait
+ * @covers \LaravelDoctrine\Passport\Model\Traits\HasUserTrait
+ * @covers \LaravelDoctrine\Passport\Model\Traits\ScopableTrait
  */
 class AuthCodeTest extends TestCase
 {
+    use TestModelProperties;
+
     /**
      * @var Client|mixed|\PHPUnit\Framework\MockObject\MockObject
      */
@@ -35,7 +37,6 @@ class AuthCodeTest extends TestCase
      * @var User|mixed|\PHPUnit\Framework\MockObject\MockObject
      */
     private $user;
-    private AuthCode $model;
 
     /**
      * @var \DateTimeInterface|mixed|\PHPUnit\Framework\MockObject\MockObject
@@ -57,29 +58,7 @@ class AuthCodeTest extends TestCase
         );
     }
 
-    /**
-     * @param string $name
-     * @param mixed  $expectedValue
-     * @dataProvider getMutableProperties
-     */
-    public function test_its_property_should_be_mutable(string $name, $expectedValue)
-    {
-        $prefix = 'is' == substr($name, 0, 2) ? '' : 'get';
-        $result = \call_user_func([$this->model, $prefix.$name]);
-        if ( ! \is_object($result)) {
-            $this->assertSame(
-                $expectedValue,
-                $result
-            );
-        } else {
-            $this->assertInstanceOf(
-                $expectedValue,
-                $result
-            );
-        }
-    }
-
-    public function getMutableProperties(): array
+    public function getTestMutableProperties(): array
     {
         return [
             ['id', 'identifier'],

@@ -13,20 +13,10 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Model;
 
-use Doctrine\ORM\Mapping as ORM;
+use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContracts;
+use LaravelDoctrine\Passport\Model\Traits\RefreshTokenTrait;
 
-trait ScopableTrait
+class RefreshToken implements RefreshTokenContracts
 {
-    /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    protected ?array $scopes = null;
-
-    /**
-     * @return array|null
-     */
-    public function getScopes(): ?array
-    {
-        return $this->scopes;
-    }
+    use RefreshTokenTrait;
 }

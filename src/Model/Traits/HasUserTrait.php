@@ -11,19 +11,23 @@
 
 declare(strict_types=1);
 
-namespace LaravelDoctrine\Passport\Model;
+namespace LaravelDoctrine\Passport\Model\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use LaravelDoctrine\Passport\Contracts\Model\User;
 
-trait ExpirableTrait
+trait HasUserTrait
 {
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Model\UserInterface")
      */
-    protected ?\DateTimeInterface $expiresAt = null;
+    protected ?User $user;
 
-    public function getExpiresAt(): ?\DateTimeInterface
+    /**
+     * @return User|null
+     */
+    public function getUser(): ?User
     {
-        return $this->expiresAt;
+        return $this->user;
     }
 }

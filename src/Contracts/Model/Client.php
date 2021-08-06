@@ -13,6 +13,32 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Contracts\Model;
 
-interface Client
+interface Client extends Identifiable, Revokable, HasUser
 {
+    /**
+     * @return string
+     */
+    public function getName(): string;
+
+    /**
+     * @return string|null
+     */
+    public function getSecret(): ?string;
+
+    public function getProvider(): ?string;
+
+    /**
+     * @return string
+     */
+    public function getRedirect(): string;
+
+    /**
+     * @return bool
+     */
+    public function isPersonalAccessClient(): bool;
+
+    /**
+     * @return bool
+     */
+    public function isPasswordClient(): bool;
 }

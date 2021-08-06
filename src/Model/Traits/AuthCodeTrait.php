@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace LaravelDoctrine\Passport\Model\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
-use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 
 trait AuthCodeTrait
 {

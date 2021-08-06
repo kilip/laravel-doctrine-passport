@@ -48,14 +48,14 @@ class LaravelDoctrinePassportServiceProvider extends ServiceProvider
         $mappingsKey = "doctrine.managers.{$managerName}.mappings";
         $resolveKey  = "doctrine.managers.{$managerName}.resolve_target_entities";
 
-        $config->set($mappingsKey, array_merge_recursive((array)$config->get($mappingsKey, []), [
+        $config->set($mappingsKey, array_merge_recursive((array) $config->get($mappingsKey, []), [
             'LaravelDoctrine\\Passport\\Model' => [
                 'type' => 'xml',
                 'dir' => realpath(__DIR__.'/../../config/mapping'),
             ],
         ]));
 
-        $config->set($resolveKey, array_merge_recursive((array)$config->get($resolveKey, []), [
+        $config->set($resolveKey, array_merge_recursive((array) $config->get($resolveKey, []), [
             ModelContracts\AccessToken::class => Passport::$tokenModel,
             ModelContracts\AuthCode::class => Passport::$authCodeModel,
             ModelContracts\Client::class => Passport::$clientModel,
@@ -63,7 +63,7 @@ class LaravelDoctrinePassportServiceProvider extends ServiceProvider
             ModelContracts\RefreshToken::class => Passport::$refreshTokenModel,
         ]));
 
-        $config->set('doctrine.extensions', array_merge((array)$config->get('doctrine.extensions', []), [
+        $config->set('doctrine.extensions', array_merge((array) $config->get('doctrine.extensions', []), [
             Extensions\Timestamps\TimestampableExtension::class,
         ]));
 

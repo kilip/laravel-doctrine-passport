@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Tests\LaravelDoctrine\Passport\Providers;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\Persistence\ObjectRepository;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider;
 use LaravelDoctrine\Extensions\Timestamps\TimestampableExtension;

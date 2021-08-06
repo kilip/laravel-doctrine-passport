@@ -30,5 +30,4 @@ class TestCase extends BaseTestCase
             LaravelDoctrinePassportServiceProvider::class,
         ];
     }
-
 }

@@ -20,12 +20,12 @@ use LaravelDoctrine\Passport\Contracts\Model\User;
 
 trait AccessTokenTrait
 {
+    use ExpirableTrait;
     use HasClientTrait;
     use HasUserTrait;
     use IdentifiableTrait;
     use RevokableTrait;
     use ScopableTrait;
-    use ExpirableTrait;
     use Timestamps;
 
     /**

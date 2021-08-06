@@ -34,6 +34,7 @@ class AccessTokenManager implements AccessTokenManagerContracts
 
     /**
      * {@inheritDoc}
+     *
      * @psalm-suppress LessSpecificReturnStatement
      * @psalm-suppress InvalidStringClass
      * @psalm-suppress MoreSpecificReturnType
@@ -52,6 +53,7 @@ class AccessTokenManager implements AccessTokenManagerContracts
 
     /**
      * {@inheritDoc}
+     *
      * @return ModelContracts\AccessToken|null
      * @psalm-suppress MixedReturnStatement
      * @psalm-suppress MixedInferredReturnType
@@ -63,7 +65,9 @@ class AccessTokenManager implements AccessTokenManagerContracts
 
     /**
      * {@inheritDoc}
+     *
      * @param int|string $userId
+     *
      * @return ModelContracts\AccessToken|null
      * @psalm-suppress MixedReturnStatement
      * @psalm-suppress MixedInferredReturnType
@@ -76,6 +80,7 @@ class AccessTokenManager implements AccessTokenManagerContracts
     public function forUser($userId): Collection
     {
         $tokens = $this->getRepository()->findBy(['user' => $userId]);
+
         return new Collection($tokens);
     }
 
@@ -123,7 +128,8 @@ class AccessTokenManager implements AccessTokenManagerContracts
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
      * @throws NonUniqueResultException
      * @psalm-suppress MixedReturnStatement
      * @psalm-suppress MixedInferredReturnType
@@ -139,9 +145,7 @@ class AccessTokenManager implements AccessTokenManagerContracts
             ->setParameter('revoked', false)
             ->setParameter('now', Carbon::now()->toDateTime())
             ->setParameter('user', $user->getId())
-            ->setParameter('client', $client->getId())
-        ;
-
+            ->setParameter('client', $client->getId());
 
         return $qb->getQuery()->getOneOrNullResult();
     }

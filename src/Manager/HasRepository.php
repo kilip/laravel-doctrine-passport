@@ -15,8 +15,6 @@ namespace LaravelDoctrine\Passport\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Persistence\ObjectRepository;
-use phpDocumentor\Reflection\Types\ClassString;
 
 trait HasRepository
 {
@@ -28,12 +26,12 @@ trait HasRepository
     protected string $class;
 
     /**
-     * @return EntityRepository The repository class.
+     * @return EntityRepository the repository class
      * @psalm-return EntityRepository
      * @psalm-suppress ArgumentTypeCoercion
      */
     public function getRepository()
     {
-        return  $this->em->getRepository($this->class);
+        return $this->em->getRepository($this->class);
     }
 }

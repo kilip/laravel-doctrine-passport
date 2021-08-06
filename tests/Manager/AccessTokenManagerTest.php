@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Tests\LaravelDoctrine\Passport\Manager;
 
-use Carbon\Carbon;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use Illuminate\Support\Collection;
@@ -210,14 +209,14 @@ class AccessTokenManagerTest extends TestCase
     public function test_it_should_find_valid_token_with_user_and_client_instance()
     {
         $repository       = $this->repository;
-        $manager  = $this->manager;
-        $userId   = 'user-id';
-        $clientId = 'client-id';
-        $qb       = m::mock(QueryBuilder::class);
-        $user     = m::mock(ModelContracts\User::class);
-        $client   = m::mock(ModelContracts\Client::class);
-        $token    = m::mock(ModelContracts\AccessToken::class);
-        $query    = m::mock(AbstractQuery::class);
+        $manager          = $this->manager;
+        $userId           = 'user-id';
+        $clientId         = 'client-id';
+        $qb               = m::mock(QueryBuilder::class);
+        $user             = m::mock(ModelContracts\User::class);
+        $client           = m::mock(ModelContracts\Client::class);
+        $token            = m::mock(ModelContracts\AccessToken::class);
+        $query            = m::mock(AbstractQuery::class);
 
         $user->shouldReceive()->getId()->once()->andReturns($userId);
         $client->shouldReceive()->getId()->once()->andReturns($clientId);

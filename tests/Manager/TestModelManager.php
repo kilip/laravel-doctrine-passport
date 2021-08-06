@@ -15,7 +15,6 @@ namespace Tests\LaravelDoctrine\Passport\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Persistence\ObjectRepository;
 use Mockery as m;
 
 trait TestModelManager

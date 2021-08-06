@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Tests\LaravelDoctrine\Passport\Manager;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Events\ClientRemoved;
 use LaravelDoctrine\Passport\Events\CreatePersonalAccessClient;
@@ -46,17 +45,10 @@ class ClientManagerTest extends TestCase
      * @var ModelContracts\User|m\LegacyMockInterface|m\MockInterface
      */
     private $user;
-    /**
-     * @var Dispatcher|m\LegacyMockInterface|m\MockInterface
-     */
-    private $dispatcher;
 
     public function configureManager(): void
     {
         $this->modelClass   = Model\AccessToken::class;
-        $this->client       = m::mock(ModelContracts\Client::class);
-        $this->user         = m::mock(ModelContracts\User::class);
-        $this->dispatcher   = m::mock(Dispatcher::class);
         $this->managerClass = Manager\ClientManager::class;
         $this->manager      = new $this->managerClass(
             $this->em,

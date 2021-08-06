@@ -34,4 +34,12 @@ class RuntimeException extends \Exception
             $userId
         ));
     }
+
+    public static function invalidRefreshTokenWithAccessTokenID(string $tokenId): self
+    {
+        return new self(sprintf(
+            'Can\'t find refresh token with token id: "%s"',
+            $tokenId
+        ));
+    }
 }

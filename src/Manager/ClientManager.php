@@ -57,15 +57,6 @@ class ClientManager implements ClientManagerContract
         $this->dispatcher                 = $dispatcher;
     }
 
-    public function save(ClientContract $client, bool $andFlush = true): void
-    {
-        $this->em->persist($client);
-
-        if ($andFlush) {
-            $this->em->flush();
-        }
-    }
-
     /**
      * {@inheritDoc}
      *

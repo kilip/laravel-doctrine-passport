@@ -28,21 +28,9 @@ class AccessTokenManagerTest extends TestCase
 
     private AccessToken $manager;
 
-    /**
-     * @var ModelContracts\Client|m\LegacyMockInterface|m\MockInterface
-     */
-    private $client;
-
-    /**
-     * @var ModelContracts\User|m\LegacyMockInterface|m\MockInterface
-     */
-    private $user;
-
     public function configureManager(): void
     {
         $this->modelClass = Model\AccessToken::class;
-        $this->client     = m::mock(ModelContracts\Client::class);
-        $this->user       = m::mock(ModelContracts\User::class);
         $this->manager    = new AccessToken(
             $this->em,
             Model\AccessToken::class

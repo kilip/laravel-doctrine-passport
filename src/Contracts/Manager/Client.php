@@ -14,12 +14,14 @@ declare(strict_types=1);
 namespace LaravelDoctrine\Passport\Contracts\Manager;
 
 use Illuminate\Support\Collection;
+use Laravel\Passport\ClientRepository;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientContract;
 
-interface Client
+/**
+ * @see ClientRepository
+ */
+interface Client extends CanSaveObject
 {
-    public function save(ClientContract $client, bool $andFlush = true): void;
-
     /**
      * Get a client by the given ID.
      *

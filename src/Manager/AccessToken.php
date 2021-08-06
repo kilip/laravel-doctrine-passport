@@ -96,16 +96,6 @@ class AccessToken implements AccessTokenManagerContracts
         ]);
     }
 
-    public function save(ModelContracts\AccessToken $token, bool $andFlush = true)
-    {
-        $om = $this->em;
-
-        $om->persist($token);
-        if ($andFlush) {
-            $om->flush();
-        }
-    }
-
     public function revokeAccessToken(string $id): void
     {
         $token = $this->find($id);

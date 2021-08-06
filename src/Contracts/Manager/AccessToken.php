@@ -19,7 +19,7 @@ use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 /**
  * @see \Laravel\Passport\TokenRepository
  */
-interface AccessToken
+interface AccessToken extends CanSaveObject
 {
     /**
      * creates a new access token.
@@ -78,16 +78,6 @@ interface AccessToken
      * @return ModelContracts\AccessToken|null
      */
     public function getValidToken(ModelContracts\User $user, ModelContracts\Client $client): ?ModelContracts\AccessToken;
-
-    /**
-     * Store the given token instance.
-     *
-     * @param ModelContracts\AccessToken $token
-     * @param bool                       $andFlush
-     *
-     * @return void
-     */
-    public function save(ModelContracts\AccessToken $token, bool $andFlush = true);
 
     /**
      * Revoke an access token.

@@ -25,6 +25,14 @@ trait HasRepository
      */
     protected string $class;
 
+    public function save(object $entity, bool $andFlush = true): void
+    {
+        $this->em->persist($entity);
+        if ($andFlush) {
+            $this->em->flush();
+        }
+    }
+
     /**
      * @return EntityRepository the repository class
      * @psalm-return EntityRepository

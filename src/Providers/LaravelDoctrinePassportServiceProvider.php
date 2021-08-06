@@ -91,8 +91,8 @@ class LaravelDoctrinePassportServiceProvider extends ServiceProvider
     private function configureServices(): void
     {
         $app                = $this->app;
-        $accessTokenManager = (string) config('doctrine_passport.access_token_manager_class', Manager\AccessTokenManager::class);
-        $app->singleton(ManagerContracts\AccessTokenManager::class,
+        $accessTokenManager = (string) config('doctrine_passport.access_token_manager_class', Manager\AccessToken::class);
+        $app->singleton(ManagerContracts\AccessToken::class,
             function (ContainerInterface $container) use ($accessTokenManager) {
                 $em = $container->get(EntityManagerInterface::class);
 

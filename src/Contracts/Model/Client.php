@@ -15,6 +15,12 @@ namespace LaravelDoctrine\Passport\Contracts\Model;
 
 interface Client extends Identifiable, Revokable, HasUser
 {
+    public function setName(string $name): void;
+
+    public function setRedirect(string $redirect): void;
+
+    public function setSecret(string $secret): void;
+
     /**
      * @return string
      */

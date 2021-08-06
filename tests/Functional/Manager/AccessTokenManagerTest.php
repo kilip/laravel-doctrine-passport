@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\LaravelDoctrine\Passport\Functional\Manager;
 
-use LaravelDoctrine\Passport\Contracts\Manager\AccessTokenManager;
+use LaravelDoctrine\Passport\Contracts\Manager\AccessToken;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use Mockery as m;
 use Tests\LaravelDoctrine\Passport\ORMTesting;
@@ -32,9 +32,9 @@ class AccessTokenManagerTest extends TestCase
 
     public function test_it_should_handles_access_token()
     {
-        $manager = app()->get(AccessTokenManager::class);
+        $manager = app()->get(AccessToken::class);
 
-        $this->assertInstanceOf(AccessTokenManager::class, $manager);
+        $this->assertInstanceOf(AccessToken::class, $manager);
 
         $user   = m::mock(ModelContracts\User::class);
         $client = m::mock(ModelContracts\Client::class);

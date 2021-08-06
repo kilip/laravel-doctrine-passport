@@ -16,7 +16,10 @@ namespace LaravelDoctrine\Passport\Contracts\Manager;
 use Illuminate\Support\Collection;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 
-interface AccessTokenManager
+/**
+ * @see \Laravel\Passport\TokenRepository
+ */
+interface AccessToken
 {
     /**
      * creates a new access token.

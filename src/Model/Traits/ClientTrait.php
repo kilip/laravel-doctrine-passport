@@ -57,7 +57,7 @@ trait ClientTrait
     public function __construct(
         User $user,
         string $name,
-        string $secret,
+        ?string $secret,
         ?string $provider,
         string $redirect,
         bool $personalAccessClient = false,
@@ -72,6 +72,30 @@ trait ClientTrait
         $this->personalAccessClient = $personalAccessClient;
         $this->passwordClient       = $passwordClient;
         $this->revoked              = $revoked;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param string|null $secret
+     */
+    public function setSecret(?string $secret): void
+    {
+        $this->secret = $secret;
+    }
+
+    /**
+     * @param string $redirect
+     */
+    public function setRedirect(string $redirect): void
+    {
+        $this->redirect = $redirect;
     }
 
     /**

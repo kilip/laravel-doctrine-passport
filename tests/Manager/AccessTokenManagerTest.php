@@ -17,7 +17,7 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use Illuminate\Support\Collection;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
-use LaravelDoctrine\Passport\Manager\AccessTokenManager;
+use LaravelDoctrine\Passport\Manager\AccessToken;
 use LaravelDoctrine\Passport\Model;
 use Mockery as m;
 use Tests\LaravelDoctrine\Passport\TestCase;
@@ -26,7 +26,7 @@ class AccessTokenManagerTest extends TestCase
 {
     use TestModelManager;
 
-    private AccessTokenManager $manager;
+    private AccessToken $manager;
 
     /**
      * @var ModelContracts\Client|m\LegacyMockInterface|m\MockInterface
@@ -43,11 +43,11 @@ class AccessTokenManagerTest extends TestCase
         $this->modelClass = Model\AccessToken::class;
         $this->client     = m::mock(ModelContracts\Client::class);
         $this->user       = m::mock(ModelContracts\User::class);
-        $this->manager    = new AccessTokenManager(
+        $this->manager    = new AccessToken(
             $this->em,
             Model\AccessToken::class
         );
-        $this->managerClass = AccessTokenManager::class;
+        $this->managerClass = AccessToken::class;
     }
 
     public function test_it_should_create_new_token()

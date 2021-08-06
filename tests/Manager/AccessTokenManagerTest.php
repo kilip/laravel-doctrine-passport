@@ -229,7 +229,7 @@ class AccessTokenManagerTest extends TestCase
             ->where('t.revoked = :revoked')
             ->once()->andReturn($qb);
 
-        $qb->shouldReceive()->andWhere('t.expires > :now')
+        $qb->shouldReceive()->andWhere('t.expiresAt > :now')
             ->once()->andReturn($qb);
 
         $qb->shouldReceive()->andWhere('t.user = :user')
@@ -238,7 +238,7 @@ class AccessTokenManagerTest extends TestCase
             ->once()->andReturn($qb);
 
         $qb->shouldReceive()
-            ->orderBy('t.expires|DESC')
+            ->orderBy('t.expiresAt', 'DESC')
             ->once()->andReturn($qb);
 
         $qb->shouldReceive('setParameter')

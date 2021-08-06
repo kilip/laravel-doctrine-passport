@@ -57,7 +57,7 @@ trait ClientTrait
         string $name,
         string $secret,
         ?string $provider,
-        ?string $redirect,
+        string $redirect,
         bool $personalAccessClient = false,
         bool $passwordClient = false,
         bool $revoked = false

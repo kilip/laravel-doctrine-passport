@@ -25,6 +25,7 @@ trait AccessTokenTrait
     use IdentifiableTrait;
     use RevokableTrait;
     use ScopableTrait;
+    use ExpirableTrait;
     use Timestamps;
 
     /**

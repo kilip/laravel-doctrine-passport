@@ -24,7 +24,6 @@ trait AuthCodeTrait
     use IdentifiableTrait;
     use RevokableTrait;
     use ScopableTrait;
-    use Timestamps;
 
     /**
      * @ORM\Column(type="string", length=100)

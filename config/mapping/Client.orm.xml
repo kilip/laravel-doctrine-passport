@@ -1,0 +1,21 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+>
+    <entity name="LaravelDoctrine\Passport\Model\Client">
+        <id name="id" type="bigint"/>
+        <many-to-one field="user" target-entity="LaravelDoctrine\Passport\Contracts\Model\User"/>
+        <field name="name"/>
+        <field name="secret" type="string" length="100" nullable="true"/>
+        <field name="provider" type="string" nullable="true"/>
+        <field name="redirect" type="text"/>
+        <field name="personalAccessClient" type="boolean"/>
+        <field name="passwordClient" type="boolean"/>
+        <field name="revoked" type="boolean"/>
+        <field name="createdAt" type="datetime">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" type="datetime">
+            <gedmo:timestampable on="update"/>
+        </field>
+    </entity>
+</doctrine-mapping>

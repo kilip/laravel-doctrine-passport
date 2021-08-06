@@ -19,7 +19,7 @@ use LaravelDoctrine\Passport\Contracts\Model\User;
 trait HasUserTrait
 {
     /**
-     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Model\UserInterface")
+     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Contracts\Model\User")
      */
     protected ?User $user;
 

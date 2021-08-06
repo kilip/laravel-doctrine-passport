@@ -19,7 +19,7 @@ use LaravelDoctrine\Passport\Contracts\Model\Client;
 trait HasClientTrait
 {
     /**
-     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Model\ClientInterface"
+     * @ORM\ManyToOne(targetEntity="LaravelDoctrine\Passport\Contracts\Model\Client")
      */
     protected Client $client;
 

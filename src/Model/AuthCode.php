@@ -13,12 +13,16 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Model;
 
+use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\Passport\Contracts\Model\AuthCode as AuthCodeContracts;
 use LaravelDoctrine\Passport\Contracts\Model\Client;
 use LaravelDoctrine\Passport\Contracts\Model\User;
 use LaravelDoctrine\Passport\Model\Traits\AuthCodeTrait;
 
 /**
+ * @ORM\Entity
+ * @ORM\Table(name="oauth_auth_codes")
+ *
  * @psalm-suppress MissingConstructor
  * @psalm-suppress PropertyNotSetInConstructor
  */

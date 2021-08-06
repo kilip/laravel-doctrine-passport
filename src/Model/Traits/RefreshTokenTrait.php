@@ -22,8 +22,6 @@ trait RefreshTokenTrait
     use ExpirableTrait;
     use IdentifiableTrait;
     use RevokableTrait;
-    use Timestamps;
-
     /**
      * @ORM\Column(type="string", length=100)
      * @ORM\Id
@@ -42,12 +40,11 @@ trait RefreshTokenTrait
         AccessTokenContracts $accessToken,
         \DateTimeImmutable $expiresAt,
         bool $revoked = false
-    )
-    {
-        $this->id = $id;
+    ) {
+        $this->id          = $id;
         $this->accessToken = $accessToken;
-        $this->expiresAt = $expiresAt;
-        $this->revoked = $revoked;
+        $this->expiresAt   = $expiresAt;
+        $this->revoked     = $revoked;
     }
 
     /**

@@ -13,9 +13,16 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Model;
 
+use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContracts;
 use LaravelDoctrine\Passport\Model\Traits\RefreshTokenTrait;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="oauth_refresh_token")
+ *
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class RefreshToken implements RefreshTokenContracts
 {
     use RefreshTokenTrait;

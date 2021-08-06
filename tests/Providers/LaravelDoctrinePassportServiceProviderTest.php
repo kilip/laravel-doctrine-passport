@@ -13,9 +13,13 @@ declare(strict_types=1);
 
 namespace Tests\LaravelDoctrine\Passport\Providers;
 
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\Persistence\ObjectRepository;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider;
 use LaravelDoctrine\Extensions\Timestamps\TimestampableExtension;
+use LaravelDoctrine\ORM\Facades\EntityManager;
+use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Model;
 use LaravelDoctrine\Passport\Providers\LaravelDoctrinePassportServiceProvider;
 use Tests\LaravelDoctrine\Passport\TestCase;
@@ -51,5 +55,27 @@ class LaravelDoctrinePassportServiceProviderTest extends TestCase
             Model\AuthCode::class,
             Passport::$authCodeModel
         );
+    }
+
+    /**
+     * @dataProvider getModels
+     */
+    public function test_should_load_doctrine_model(string $model)
+    {
+        $this->assertInstanceOf(
+            ClassMetadata::class,
+            EntityManager::getClassMetadata($model)
+        );
+    }
+
+    public function getModels(): array
+    {
+        return [
+            [ModelContracts\AccessToken::class],
+            [ModelContracts\AuthCode::class],
+            [ModelContracts\Client::class],
+            [ModelContracts\PersonalAccessClient::class],
+            [ModelContracts\RefreshToken::class],
+        ];
     }
 }

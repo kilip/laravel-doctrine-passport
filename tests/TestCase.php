@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Tests\LaravelDoctrine\Passport;
 
 use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
+use LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider;
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
 use LaravelDoctrine\Passport\Providers\LaravelDoctrinePassportServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -23,9 +24,11 @@ class TestCase extends BaseTestCase
     protected function getPackageProviders($app)
     {
         return [
+            GedmoExtensionsServiceProvider::class,
             DoctrineServiceProvider::class,
             LaravelPassportServiceProvider::class,
             LaravelDoctrinePassportServiceProvider::class,
         ];
     }
+
 }

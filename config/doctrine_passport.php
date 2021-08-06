@@ -12,5 +12,6 @@
 declare(strict_types=1);
 
 return [
+    'load_model' => true,
     'entity_manager_name' => 'default',
 ];

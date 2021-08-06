@@ -20,7 +20,6 @@ trait IdentifiableTrait
     /**
      * @ORM\Column(type="bigint")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      *
      * @var mixed|int|string|null
      */

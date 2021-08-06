@@ -1,0 +1,10 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+>
+    <entity name="LaravelDoctrine\Passport\Model\RefreshToken">
+        <id name="id" type="string" length="100"/>
+        <many-to-one field="accessToken" target-entity="LaravelDoctrine\Passport\Contracts\Model\AccessToken"/>
+        <field name="revoked" type="boolean"/>
+        <field name="expiresAt" type="datetime_immutable" nullable="true"/>
+    </entity>
+</doctrine-mapping>

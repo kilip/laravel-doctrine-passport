@@ -16,38 +16,57 @@ namespace LaravelDoctrine\Passport\Providers;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 use LaravelDoctrine\Extensions;
-use LaravelDoctrine\Passport\Model\AccessToken;
-use LaravelDoctrine\Passport\Model\AuthCode;
+use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
+use LaravelDoctrine\Passport\Model;
 
 class LaravelDoctrinePassportServiceProvider extends ServiceProvider
 {
-    public function boot(): void
-    {
-        Passport::$tokenModel    = AccessToken::class;
-        Passport::$authCodeModel = AuthCode::class;
-    }
-
     public function register(): void
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/doctrine-passport.php',
+            __DIR__.'/../../config/doctrine_passport.php',
             'doctrine_passport'
         );
-        $this->configureDoctrine();
+
+        if (config('doctrine_passport.load_model', true)) {
+            $this->configureModels();
+        }
     }
 
-    private function configureDoctrine(): void
+    private function configureModels(): void
     {
-        $existing = (array) config('doctrine');
+        Passport::$tokenModel                = Model\AccessToken::class;
+        Passport::$authCodeModel             = Model\AuthCode::class;
+        Passport::$clientModel               = Model\Client::class;
+        Passport::$personalAccessClientModel = Model\PersonalAccessClient::class;
+        Passport::$refreshTokenModel         = Model\RefreshToken::class;
 
-        $config = array_merge_recursive($existing, [
-            'extensions' => [
-                Extensions\Timestamps\TimestampableExtension::class,
+        /** @var \Illuminate\Config\Repository $config */
+        $config      = $this->app->make('config');
+
+        $managerName = (string) $config->get('doctrine_passport.entity_manager_name', 'default');
+        $mappingsKey = "doctrine.managers.{$managerName}.mappings";
+        $resolveKey  = "doctrine.managers.{$managerName}.resolve_target_entities";
+
+        $config->set($mappingsKey, array_merge_recursive((array)$config->get($mappingsKey, []), [
+            'LaravelDoctrine\\Passport\\Model' => [
+                'type' => 'xml',
+                'dir' => realpath(__DIR__.'/../../config/mapping'),
             ],
-        ]);
+        ]));
 
-        config([
-            'doctrine' => $config,
-        ]);
+        $config->set($resolveKey, array_merge_recursive((array)$config->get($resolveKey, []), [
+            ModelContracts\AccessToken::class => Passport::$tokenModel,
+            ModelContracts\AuthCode::class => Passport::$authCodeModel,
+            ModelContracts\Client::class => Passport::$clientModel,
+            ModelContracts\PersonalAccessClient::class => Passport::$personalAccessClientModel,
+            ModelContracts\RefreshToken::class => Passport::$refreshTokenModel,
+        ]));
+
+        $config->set('doctrine.extensions', array_merge((array)$config->get('doctrine.extensions', []), [
+            Extensions\Timestamps\TimestampableExtension::class,
+        ]));
+
+        $config->set('doctrine.gedmo.all_mappings', true);
     }
 }

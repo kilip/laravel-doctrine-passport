@@ -13,6 +13,6 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Contracts\Model;
 
-interface AuthCode extends HasUser, HasClient, Scopable, Revokable, Expirable
+interface AuthCode extends Identifiable, HasUser, HasClient, Scopable, Revokable, Expirable
 {
 }

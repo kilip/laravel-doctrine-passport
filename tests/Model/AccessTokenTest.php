@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \LaravelDoctrine\Passport\Model\AccessToken
  * @covers \LaravelDoctrine\Passport\Model\RevokableTrait
+ * @covers \LaravelDoctrine\Passport\Model\IdentifiableTrait
  */
 class AccessTokenTest extends TestCase
 {

@@ -14,23 +14,23 @@ declare(strict_types=1);
 namespace LaravelDoctrine\Passport\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 
-trait AuthCodeTrait
+trait IdentifiableTrait
 {
-    use ExpirableTrait;
-    use HasClientTrait;
-    use HasUserTrait;
-    use IdentifiableTrait;
-    use RevokableTrait;
-    use ScopableTrait;
-    use Timestamps;
-
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="bigint")
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      *
-     * @var string|int|mixed|null
+     * @var mixed|int|string|null
      */
     protected $id;
+
+    /**
+     * @return int|mixed|string|null
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

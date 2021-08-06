@@ -15,11 +15,14 @@ namespace LaravelDoctrine\Passport\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
+use LaravelDoctrine\Passport\Contracts\Model\Client;
+use LaravelDoctrine\Passport\Contracts\Model\User;
 
 trait AccessTokenTrait
 {
     use HasClientTrait;
     use HasUserTrait;
+    use IdentifiableTrait;
     use RevokableTrait;
     use ScopableTrait;
     use Timestamps;
@@ -27,20 +30,30 @@ trait AccessTokenTrait
     /**
      * @ORM\Column(type="string", length=100)
      * @ORM\Id
+     *
+     * @var string|int|mixed|null
      */
-    protected string $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected ?string $name;
 
-    /**
-     * @return string
-     */
-    public function getId(): string
-    {
-        return $this->id;
+    public function __construct(
+        string $id,
+        Client $client,
+        ?User $user,
+        ?string $name,
+        ?array $scopes,
+        bool $revoked = false
+    ) {
+        $this->id      = $id;
+        $this->client  = $client;
+        $this->user    = $user;
+        $this->name    = $name;
+        $this->scopes  = $scopes;
+        $this->revoked = $revoked;
     }
 
     /**

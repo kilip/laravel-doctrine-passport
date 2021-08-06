@@ -11,14 +11,12 @@
 
 declare(strict_types=1);
 
-namespace LaravelDoctrine\Passport\Model;
+namespace LaravelDoctrine\Passport\Contracts\Model;
 
-use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContract;
-
-/**
- * @psalm-suppress PropertyNotSetInConstructor
- */
-class AccessToken implements AccessTokenContract
+interface Identifiable
 {
-    use AccessTokenTrait;
+    /**
+     * @return mixed|int|string|null
+     */
+    public function getId();
 }

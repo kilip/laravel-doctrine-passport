@@ -67,7 +67,7 @@ class ClientManagerTest extends TestCase
         $this->assertSame('pac_secret', $manager->getPersonalAccessClientSecret());
     }
 
-    protected function configureUserRepositoryMock()
+    protected function configureUserRepositoryMock(bool $nullReturn = false)
     {
         $em       = $this->em;
         $userRepo = m::mock($userModel = ModelContracts\User::class);
@@ -75,7 +75,7 @@ class ClientManagerTest extends TestCase
         $em->shouldReceive('getRepository')
             ->with($userModel)->once()->andReturn($userRepo);
         $userRepo->shouldReceive('find')
-            ->with('user-id')->andReturn($this->user);
+            ->with('user-id')->andReturn($nullReturn ? null : $this->user);
     }
 
     protected function configureSaveMock(bool $useClientMock = true)
@@ -224,6 +224,25 @@ class ClientManagerTest extends TestCase
 
         $this->assertInstanceOf(Model\Client::class, $client);
         $this->assertSame($user, $client->getUser());
+    }
+
+    public function test_its_create_throws_exception_when_user_not_exist()
+    {
+        $manager = $this->manager;
+
+        $this->configureUserRepositoryMock(true);
+        $this->expectExceptionObject($ob = RuntimeException::clientUserNotFoundException('user-id'));
+        $this->expectExceptionMessage($ob->getMessage());
+
+        $manager->create(
+            'user-id',
+            'name',
+            'redirect',
+            'provider',
+            true,
+            true,
+            false
+        );
     }
 
     public function test_it_should_creates_new_personal_access_client()

@@ -16,6 +16,7 @@ namespace Tests\LaravelDoctrine\Passport\Manager;
 use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContract;
 use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContract;
 use LaravelDoctrine\Passport\Events\RefreshTokenCreated;
+use LaravelDoctrine\Passport\Exception\RuntimeException;
 use LaravelDoctrine\Passport\Manager\RefreshToken as RefreshTokenManager;
 use LaravelDoctrine\Passport\Model\RefreshToken as RefreshTokenModel;
 use Mockery as m;
@@ -23,6 +24,7 @@ use Tests\LaravelDoctrine\Passport\TestCase;
 
 /**
  * @covers \LaravelDoctrine\Passport\Manager\RefreshToken
+ * @covers \LaravelDoctrine\Passport\Exception\RuntimeException
  */
 class RefreshTokenTest extends TestCase
 {
@@ -119,12 +121,17 @@ class RefreshTokenTest extends TestCase
 
         $repo->shouldReceive('findOneBy')
             ->with(['accessToken' => 'token-id'])
-            ->once()->andReturn($refreshToken);
+            ->times(2)->andReturns($refreshToken, null);
 
         $refreshToken->shouldReceive('revoke')
             ->once();
 
         $this->configureSaveMock();
+        $manager->revokeRefreshTokensByAccessTokenId('token-id');
+
+        // throws exception when null
+        $this->expectExceptionObject($ob = RuntimeException::invalidRefreshTokenWithAccessTokenID('token-id'));
+        $this->expectExceptionMessage($ob->getMessage());
         $manager->revokeRefreshTokensByAccessTokenId('token-id');
     }
 

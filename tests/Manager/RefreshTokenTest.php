@@ -15,7 +15,7 @@ namespace Tests\LaravelDoctrine\Passport\Manager;
 
 use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContract;
 use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContract;
-use LaravelDoctrine\Passport\Events\RefreshTokenCreated;
+use Laravel\Passport\Events\RefreshTokenCreated;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
 use LaravelDoctrine\Passport\Manager\RefreshToken as RefreshTokenManager;
 use LaravelDoctrine\Passport\Model\RefreshToken as RefreshTokenModel;

@@ -18,7 +18,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use LaravelDoctrine\Passport\Contracts\Manager\RefreshToken as RefreshTokenManagerContract;
 use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContract;
 use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContract;
-use LaravelDoctrine\Passport\Events\RefreshTokenCreated;
+use Laravel\Passport\Events\RefreshTokenCreated;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
 
 class RefreshToken implements RefreshTokenManagerContract

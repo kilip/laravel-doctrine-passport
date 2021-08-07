@@ -20,6 +20,9 @@ use League\OAuth2\Server\Entities\ClientEntityInterface;
 use Mockery as m;
 use Tests\LaravelDoctrine\Passport\TestCase;
 
+/**
+ * @covers \LaravelDoctrine\Passport\Bridge\UserRepository
+ */
 class UserRepositoryTest extends TestCase
 {
     use RepositoryTestTrait;

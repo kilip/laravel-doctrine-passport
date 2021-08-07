@@ -15,24 +15,26 @@ namespace Tests\LaravelDoctrine\Passport\Providers;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Laravel\Passport\Passport;
-use Laravel\Passport\PassportServiceProvider;
 use LaravelDoctrine\Extensions\Timestamps\TimestampableExtension;
 use LaravelDoctrine\ORM\Facades\EntityManager;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
+use LaravelDoctrine\Passport\Contracts\Manager as ManagerContracts;
+use LaravelDoctrine\Passport\Manager as Managers;
 use LaravelDoctrine\Passport\Model;
-use LaravelDoctrine\Passport\Providers\LaravelDoctrinePassportServiceProvider;
+use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
+use LaravelDoctrine\Passport\Providers\PassportServiceProvider;
 use Tests\LaravelDoctrine\Passport\TestCase;
 
 /**
- * @covers \LaravelDoctrine\Passport\Providers\LaravelDoctrinePassportServiceProvider
+ * @covers \LaravelDoctrine\Passport\Providers\PassportServiceProvider
  */
-class LaravelDoctrinePassportServiceProviderTest extends TestCase
+class PassportServiceProviderTest extends TestCase
 {
     public function test_providers_loaded()
     {
         $app = $this->app;
+        $this->assertTrue($app->providerIsLoaded(LaravelPassportServiceProvider::class));
         $this->assertTrue($app->providerIsLoaded(PassportServiceProvider::class));
-        $this->assertTrue($app->providerIsLoaded(LaravelDoctrinePassportServiceProvider::class));
     }
 
     public function test_should_configure_doctrine()
@@ -75,6 +77,30 @@ class LaravelDoctrinePassportServiceProviderTest extends TestCase
             [ModelContracts\Client::class],
             [ModelContracts\PersonalAccessClient::class],
             [ModelContracts\RefreshToken::class],
+        ];
+    }
+
+    /**
+     * @param string $abstract
+     * @param string $concrete
+     * @dataProvider getManagers
+     */
+    public function test_it_should_load_model_manager(string $abstract, string $concrete)
+    {
+        $this->assertInstanceOf(
+            $concrete,
+            app()->make($abstract)
+        );
+    }
+
+    public function getManagers(): array
+    {
+        return [
+            [ManagerContracts\AccessToken::class, Managers\AccessToken::class],
+            [ManagerContracts\AuthCode::class, Managers\AuthCodeManager::class],
+            [ManagerContracts\PersonalAccessClient::class, Managers\PersonalAccessClientManager::class],
+            [ManagerContracts\Client::class, Managers\ClientManager::class],
+            [ManagerContracts\RefreshToken::class, Managers\RefreshToken::class]
         ];
     }
 }

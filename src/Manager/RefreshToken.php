@@ -30,10 +30,10 @@ class RefreshToken implements RefreshTokenManagerContract
     public function __construct(
         EntityManagerInterface $entityManager,
         Dispatcher $dispatcher,
-        string $refreshTokenModel
+        string $model
     ) {
         $this->em         = $entityManager;
-        $this->class      = $refreshTokenModel;
+        $this->class      = $model;
         $this->dispatcher = $dispatcher;
     }
 
@@ -46,7 +46,7 @@ class RefreshToken implements RefreshTokenManagerContract
     {
         $token = new $this->class($id, $accessToken, $expiry, $revoked);
         \assert($token instanceof RefreshTokenContract);
-        $event = new RefreshTokenCreated($token, $accessToken);
+        $event = new RefreshTokenCreated((string)$token->getId(), (string)$accessToken->getId());
 
         $this->save($token);
         $this->dispatcher->dispatch($event);

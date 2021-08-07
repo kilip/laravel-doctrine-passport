@@ -80,7 +80,7 @@ interface Client extends CanSaveObject
     /**
      * Store a new client.
      *
-     * @param int         $userId
+     * @param int|string  $userId
      * @param string      $name
      * @param string      $redirect
      * @param string|null $provider
@@ -88,7 +88,7 @@ interface Client extends CanSaveObject
      * @param bool        $password
      * @param bool        $confidential
      *
-     * @return ClientContract
+     * @return ClientContract|object
      */
     public function create($userId, $name, $redirect, $provider = null, $personalAccess = false, $password = false, $confidential = true);
 
@@ -99,7 +99,7 @@ interface Client extends CanSaveObject
      * @param string $name
      * @param string $redirect
      *
-     * @return ClientContract
+     * @return ClientContract|object
      */
     public function createPersonalAccessClient($userId, $name, $redirect);
 

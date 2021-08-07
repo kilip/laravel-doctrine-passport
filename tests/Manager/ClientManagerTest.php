@@ -15,7 +15,7 @@ namespace Tests\LaravelDoctrine\Passport\Manager;
 
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Events\ClientRemoved;
-use LaravelDoctrine\Passport\Events\CreatePersonalAccessClient;
+use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClient as PersonalAccessClientManager;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
 use LaravelDoctrine\Passport\Manager;
 use LaravelDoctrine\Passport\Manager\ClientManager;
@@ -45,17 +45,23 @@ class ClientManagerTest extends TestCase
      * @var ModelContracts\User|m\LegacyMockInterface|m\MockInterface
      */
     private $user;
+    /**
+     * @var PersonalAccessClientManager|m\LegacyMockInterface|m\MockInterface
+     */
+    private $pacManager;
 
     public function configureManager(): void
     {
-        $this->modelClass   = Model\AccessToken::class;
+        $this->modelClass   = Model\Client::class;
         $this->managerClass = Manager\ClientManager::class;
+        $this->pacManager = m::mock(PersonalAccessClientManager::class);
         $this->manager      = new $this->managerClass(
             $this->em,
+            $this->pacManager,
             $this->dispatcher,
             'pac_id',
             'pac_secret',
-            Model\AccessToken::class
+            Model\Client::class
         );
     }
 
@@ -193,6 +199,7 @@ class ClientManagerTest extends TestCase
 
         $manager = new ClientManager(
             $this->em,
+            $this->pacManager,
             $this->dispatcher,
             null,
             'secret',
@@ -248,13 +255,15 @@ class ClientManagerTest extends TestCase
     public function test_it_should_creates_new_personal_access_client()
     {
         $manager    = $this->manager;
-        $dispatcher = $this->dispatcher;
+        $pacManager = $this->pacManager;
+
+        $pacManager->shouldReceive('create')
+            ->once()
+            ->with(m::type(ModelContracts\Client::class));
 
         $this->configureSaveMock(false);
         $this->configureUserRepositoryMock();
 
-        $dispatcher->shouldReceive('dispatch')
-            ->with(m::type(CreatePersonalAccessClient::class));
 
         $client = $manager->createPersonalAccessClient('user-id', 'name', 'redirect');
         $this->assertInstanceOf(ModelContracts\Client::class, $client);

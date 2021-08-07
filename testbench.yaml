@@ -1,0 +1,9 @@
+env:
+  - DB_CONNECTION="sqlite"
+  - DB_DATABASE="./build/db.sqlite
+providers:
+  - LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider
+  - LaravelDoctrine\ORM\DoctrineServiceProvider
+  - Laravel\Passport\PassportServiceProvider
+  - LaravelDoctrine\Passport\Providers\PassportServiceProvider
+  - Tests\LaravelDoctrine\Passport\Fixtures\Providers\TestServiceProvider

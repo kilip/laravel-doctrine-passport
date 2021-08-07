@@ -47,4 +47,21 @@ class RuntimeException extends \Exception
     {
         return new self('Unable to determine authentication model from configuration.');
     }
+
+    public static function clientPassportRepositoryMethodNotExists(string $name, string $class): self
+    {
+        return new self(sprintf(
+            'Method "%s" not exists in %s',
+            $name,
+            $class
+        ));
+    }
+
+    public static function clientPassportRepositoryMethodUnsupported(string $name): self
+    {
+        return new self(sprintf(
+            'Method "%s" is not supported',
+            $name
+        ));
+    }
 }

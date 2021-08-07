@@ -26,10 +26,10 @@ class AuthCodeManager implements AuthCodeManagerContract
 
     public function __construct(
         EntityManagerInterface $em,
-        string $authCodeModel
+        string $model
     ) {
         $this->em    = $em;
-        $this->class = $authCodeModel;
+        $this->class = $model;
     }
 
     /**

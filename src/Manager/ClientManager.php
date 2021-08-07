@@ -20,8 +20,8 @@ use Illuminate\Support\Str;
 use LaravelDoctrine\Passport\Contracts\Manager\Client as ClientManagerContract;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientContract;
 use LaravelDoctrine\Passport\Contracts\Model\User as UserContract;
+use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClient as PersonalAccessClientManager;
 use LaravelDoctrine\Passport\Events\ClientRemoved;
-use LaravelDoctrine\Passport\Events\CreatePersonalAccessClient;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
 use LaravelDoctrine\Passport\Model\Client;
 
@@ -29,32 +29,42 @@ class ClientManager implements ClientManagerContract
 {
     use HasRepository;
 
+    private PersonalAccessClientManager $pacManager;
+
     /**
      * @var int|string|null
      */
     private $personalAccessClientId;
-    private string $personalAccessClientSecret;
+
+    /**
+     * @var string|null
+     */
+    private ?string $personalAccessClientSecret;
+
     private Dispatcher $dispatcher;
 
     /**
      * @param EntityManagerInterface $em
-     * @param Dispatcher             $dispatcher
-     * @param int|string|null        $personalAccessClientId
-     * @param string                 $personalAccessClientSecret
-     * @param string                 $clientModel
+     * @param PersonalAccessClientManager $pacManager
+     * @param Dispatcher $dispatcher
+     * @param string $model
+     * @param int|string|null $personalAccessClientId
+     * @param ?string $personalAccessClientSecret
      */
     public function __construct(
         EntityManagerInterface $em,
+        PersonalAccessClientManager $pacManager,
         Dispatcher $dispatcher,
+        string $model,
         $personalAccessClientId,
-        string $personalAccessClientSecret,
-        string $clientModel
+        ?string $personalAccessClientSecret
     ) {
         $this->em                         = $em;
-        $this->class                      = $clientModel;
+        $this->class                      = $model;
         $this->personalAccessClientId     = $personalAccessClientId;
         $this->personalAccessClientSecret = $personalAccessClientSecret;
         $this->dispatcher                 = $dispatcher;
+        $this->pacManager = $pacManager;
     }
 
     /**
@@ -147,6 +157,8 @@ class ClientManager implements ClientManagerContract
 
     /**
      * {@inheritDoc}
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress InvalidStringClass
      */
     public function create($userId, $name, $redirect, $provider = null, $personalAccess = false, $password = false, $confidential = true)
     {
@@ -157,7 +169,8 @@ class ClientManager implements ClientManagerContract
             throw RuntimeException::clientUserNotFoundException($userId);
         }
 
-        $client = new Client(
+        $class = $this->class;
+        $client = new $class(
             $user,
             $name,
             ($confidential || $personalAccess) ? Str::random(40) : null,
@@ -175,18 +188,20 @@ class ClientManager implements ClientManagerContract
 
     /**
      * {@inheritDoc}
+     * @psalm-suppress LessSpecificReturnStatement
      */
     public function createPersonalAccessClient($userId, $name, $redirect)
     {
         $client = $this->create($userId, $name, $redirect, null, true);
-        $event  = new CreatePersonalAccessClient($client);
-        $this->dispatcher->dispatch($event);
+        $this->pacManager->create($client);
 
         return $client;
     }
 
     /**
      * {@inheritDoc}
+     * @psalm-suppress LessSpecificReturnStatement
+     * @psalm-suppress MoreSpecificReturnType
      */
     public function createPasswordGrantClient($userId, $name, $redirect, $provider = null)
     {

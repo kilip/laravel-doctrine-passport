@@ -26,10 +26,10 @@ class AccessToken implements AccessTokenManagerContracts
 
     public function __construct(
         EntityManagerInterface $objectManager,
-        string $accessTokenModelClass
+        string $model
     ) {
         $this->em    = $objectManager;
-        $this->class = $accessTokenModelClass;
+        $this->class = $model;
     }
 
     /**

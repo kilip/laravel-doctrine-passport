@@ -23,14 +23,11 @@ use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 class ClientRepository implements ClientRepositoryInterface
 {
     private ClientManager $clientManager;
-    private Dispatcher $dispatcher;
 
     public function __construct(
         ClientManager $clientManager,
-        Dispatcher $dispatcher
     ) {
         $this->clientManager = $clientManager;
-        $this->dispatcher    = $dispatcher;
     }
 
     /**
@@ -44,11 +41,11 @@ class ClientRepository implements ClientRepositoryInterface
             return null;
         }
 
+        /** @var string $id */
         $id = $record->getId();
-        \assert(null !== $id);
 
         return new ClientEntity(
-            (string) $id,
+            $id,
             $record->getName(),
             $record->getRedirect(),
             $record->confidential(),

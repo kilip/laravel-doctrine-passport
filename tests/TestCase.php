@@ -18,7 +18,7 @@ use Illuminate\Foundation\Application;
 use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
 use LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider;
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
-use LaravelDoctrine\Passport\Providers\LaravelDoctrinePassportServiceProvider;
+use LaravelDoctrine\Passport\Providers\PassportServiceProvider;
 use Mockery as m;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\LaravelDoctrine\Passport\Fixtures\Model\User;
@@ -31,7 +31,7 @@ class TestCase extends BaseTestCase
             GedmoExtensionsServiceProvider::class,
             DoctrineServiceProvider::class,
             LaravelPassportServiceProvider::class,
-            LaravelDoctrinePassportServiceProvider::class,
+            PassportServiceProvider::class,
         ];
     }
 

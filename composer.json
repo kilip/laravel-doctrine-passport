@@ -15,6 +15,9 @@
         },
         "laravel": {
             "providers": [
+                "LaravelDoctrine\\Passport\\Providers\\PassportServiceProvider"
+            ],
+            "dont-discover": [
                 "Laravel\\Passport\\PassportServiceProvider"
             ]
         }

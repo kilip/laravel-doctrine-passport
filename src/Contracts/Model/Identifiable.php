@@ -16,7 +16,7 @@ namespace LaravelDoctrine\Passport\Contracts\Model;
 interface Identifiable
 {
     /**
-     * @return mixed|int|string|null
+     * @return mixed|int|string
      */
     public function getId();
 }

@@ -76,7 +76,7 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
             $this->scopesToArray($accessTokenEntity->getScopes())
         );
 
-        $event = new AccessTokenCreated($token->getId(), $user->getId(), (string) $client->getId());
+        $event = new AccessTokenCreated($token->getId(), $user->getPassportUserId(), (string) $client->getId());
         $this->events->dispatch($event);
     }
 

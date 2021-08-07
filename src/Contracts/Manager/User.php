@@ -23,4 +23,12 @@ interface User
      * @return UserModel|null
      */
     public function find($userIdentifier): ?UserModel;
+
+    /**
+     * @param string $username
+     * @param string $password
+     *
+     * @return UserModel|null
+     */
+    public function findAndValidateForPassport(string $username, string $password): ?UserModel;
 }

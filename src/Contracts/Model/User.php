@@ -16,7 +16,7 @@ namespace LaravelDoctrine\Passport\Contracts\Model;
 interface User
 {
     /**
-     * @return mixed|int|string|null
+     * @return int|string
      */
-    public function getId();
+    public function getPassportUserId();
 }

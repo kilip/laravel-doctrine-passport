@@ -42,4 +42,9 @@ class RuntimeException extends \Exception
             $tokenId
         ));
     }
+
+    public static function authModelNotExist(): self
+    {
+        return new self('Unable to determine authentication model from configuration.');
+    }
 }

@@ -24,4 +24,9 @@ use LaravelDoctrine\Passport\Model\Traits\IdentifiableTrait;
 class User implements ModelContracts\User
 {
     use IdentifiableTrait;
+
+    public function getPassportUserId()
+    {
+        return $this->id;
+    }
 }

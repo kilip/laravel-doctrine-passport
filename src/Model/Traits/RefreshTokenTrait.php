@@ -47,6 +47,14 @@ trait RefreshTokenTrait
     }
 
     /**
+     * @return int|mixed|string|null
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return AccessTokenContracts
      */
     public function getAccessToken(): AccessTokenContracts

@@ -74,7 +74,7 @@ class AccessTokenRepositoryTest extends TestCase
 
         $token->shouldReceive('getId')
             ->once()->andReturn('token-id');
-        $user->shouldReceive('getId')->once()->andReturn('user-id');
+        $user->shouldReceive('getPassportUserId')->once()->andReturn('user-id');
         $client->shouldReceive('getId')->once()->andReturn('client-id');
         $this->clientManager->shouldReceive('find')
             ->with('client-id')

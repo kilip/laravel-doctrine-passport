@@ -134,7 +134,7 @@ class AccessToken implements AccessTokenManagerContracts
             ->orderBy('t.expiresAt', 'DESC')
             ->setParameter('revoked', false)
             ->setParameter('now', Carbon::now()->toDateTime())
-            ->setParameter('user', $user->getId())
+            ->setParameter('user', $user->getPassportUserId())
             ->setParameter('client', $client->getId());
 
         return $qb->getQuery()->getOneOrNullResult();

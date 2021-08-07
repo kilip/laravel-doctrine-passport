@@ -206,7 +206,7 @@ class AccessTokenManagerTest extends TestCase
         $token            = m::mock(ModelContracts\AccessToken::class);
         $query            = m::mock(AbstractQuery::class);
 
-        $user->shouldReceive()->getId()->once()->andReturns($userId);
+        $user->shouldReceive()->getPassportUserId()->once()->andReturns($userId);
         $client->shouldReceive()->getId()->once()->andReturns($clientId);
 
         $repository->shouldReceive()

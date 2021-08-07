@@ -40,7 +40,7 @@ class AccessTokenManagerTest extends TestCase
         $client = m::mock(ModelContracts\Client::class);
 
         $user->shouldReceive()
-            ->getId()->andReturns('user-id');
+            ->getPassportUserId()->andReturns('user-id');
         $client->shouldReceive()
             ->getId()->andReturns('client-id');
 

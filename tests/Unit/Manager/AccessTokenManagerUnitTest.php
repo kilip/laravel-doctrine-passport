@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Manager;
+namespace Tests\LaravelDoctrine\Passport\Unit\Manager;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
@@ -20,9 +20,9 @@ use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Manager\AccessToken;
 use LaravelDoctrine\Passport\Model;
 use Mockery as m;
-use Tests\LaravelDoctrine\Passport\TestCase;
+use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
-class AccessTokenManagerTest extends TestCase
+class AccessTokenManagerUnitTest extends UnitTestCase
 {
     use TestModelManager;
 

@@ -11,18 +11,18 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Bridge;
+namespace Tests\LaravelDoctrine\Passport\Unit\Bridge;
 
 use Laravel\Passport\Bridge\AccessToken as AccessTokenEntity;
 use Laravel\Passport\Events\RefreshTokenCreated;
 use LaravelDoctrine\Passport\Bridge\RefreshTokenRepository;
 use Mockery as m;
-use Tests\LaravelDoctrine\Passport\TestCase;
+use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
 /**
  * @covers \LaravelDoctrine\Passport\Bridge\RefreshTokenRepository
  */
-class RefreshTokenRepositoryTest extends TestCase
+class RefreshTokenRepositoryUnitTest extends UnitTestCase
 {
     use RepositoryTestTrait;
 

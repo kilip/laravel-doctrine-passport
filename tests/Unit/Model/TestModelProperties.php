@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Model;
+namespace Tests\LaravelDoctrine\Passport\Unit\Model;
 
 trait TestModelProperties
 {

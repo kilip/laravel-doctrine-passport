@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Model;
+namespace Tests\LaravelDoctrine\Passport\Unit\Model;
 
 use LaravelDoctrine\Passport\Contracts\Model\User;
 use LaravelDoctrine\Passport\Model\Client;

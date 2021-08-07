@@ -11,17 +11,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Manager;
+namespace Tests\LaravelDoctrine\Passport\Unit\Manager;
 
 use LaravelDoctrine\Passport\Manager\AuthCodeManager;
 use LaravelDoctrine\Passport\Model\AuthCode as AuthCodeModel;
 use Mockery as m;
-use Tests\LaravelDoctrine\Passport\TestCase;
+use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
 /**
  * @covers \LaravelDoctrine\Passport\Manager\AuthCodeManager
  */
-class AuthCodeManagerTest extends TestCase
+class AuthCodeManagerUnitTest extends UnitTestCase
 {
     use TestModelManager;
 

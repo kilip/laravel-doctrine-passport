@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Bridge;
+namespace Tests\LaravelDoctrine\Passport\Unit\Bridge;
 
 use Illuminate\Events\Dispatcher;
 use LaravelDoctrine\Passport\Contracts\Manager\AccessToken as AccessTokenManager;

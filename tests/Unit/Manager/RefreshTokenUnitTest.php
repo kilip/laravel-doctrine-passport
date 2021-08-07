@@ -11,22 +11,22 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Manager;
+namespace Tests\LaravelDoctrine\Passport\Unit\Manager;
 
+use Laravel\Passport\Events\RefreshTokenCreated;
 use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContract;
 use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContract;
-use Laravel\Passport\Events\RefreshTokenCreated;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
 use LaravelDoctrine\Passport\Manager\RefreshToken as RefreshTokenManager;
 use LaravelDoctrine\Passport\Model\RefreshToken as RefreshTokenModel;
 use Mockery as m;
-use Tests\LaravelDoctrine\Passport\TestCase;
+use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
 /**
  * @covers \LaravelDoctrine\Passport\Manager\RefreshToken
  * @covers \LaravelDoctrine\Passport\Exception\RuntimeException
  */
-class RefreshTokenTest extends TestCase
+class RefreshTokenUnitTest extends UnitTestCase
 {
     use TestModelManager;
 

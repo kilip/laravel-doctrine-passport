@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport;
+namespace Tests\LaravelDoctrine\Passport\Feature;
 
 use Illuminate\Config\Repository;
 use Illuminate\Foundation\Application;
@@ -54,9 +54,9 @@ class TestCase extends BaseTestCase
 
         $config->set('doctrine.managers.default.mappings', array_merge(
             $config->get('doctrine.managers.default.mappings', []), [
-                __NAMESPACE__.'\\Fixtures\\Model' => [
+                'Tests\\LaravelDoctrine\\Passport\\Fixtures\\Model' => [
                     'type' => 'annotation',
-                    'dir' => __DIR__.'/Fixtures/Model',
+                    'dir' => __DIR__.'/../Fixtures/Model',
                 ],
             ]
         ));

@@ -11,19 +11,18 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Providers;
+namespace Tests\LaravelDoctrine\Passport\Feature;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Laravel\Passport\Passport;
+use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
 use LaravelDoctrine\Extensions\Timestamps\TimestampableExtension;
 use LaravelDoctrine\ORM\Facades\EntityManager;
-use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Contracts\Manager as ManagerContracts;
+use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Manager as Managers;
 use LaravelDoctrine\Passport\Model;
-use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
 use LaravelDoctrine\Passport\Providers\PassportServiceProvider;
-use Tests\LaravelDoctrine\Passport\TestCase;
 
 /**
  * @covers \LaravelDoctrine\Passport\Providers\PassportServiceProvider
@@ -100,7 +99,7 @@ class PassportServiceProviderTest extends TestCase
             [ManagerContracts\AuthCode::class, Managers\AuthCodeManager::class],
             [ManagerContracts\PersonalAccessClient::class, Managers\PersonalAccessClientManager::class],
             [ManagerContracts\Client::class, Managers\ClientManager::class],
-            [ManagerContracts\RefreshToken::class, Managers\RefreshToken::class]
+            [ManagerContracts\RefreshToken::class, Managers\RefreshToken::class],
         ];
     }
 }

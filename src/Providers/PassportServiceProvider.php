@@ -13,9 +13,6 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Providers;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 use LaravelDoctrine\Extensions;
@@ -23,7 +20,6 @@ use LaravelDoctrine\Passport\Contracts\Manager as ManagerContracts;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Manager;
 use LaravelDoctrine\Passport\Model;
-use Psr\Container\ContainerInterface;
 
 class PassportServiceProvider extends ServiceProvider
 {
@@ -92,17 +88,17 @@ class PassportServiceProvider extends ServiceProvider
     {
         $app                = $this->app;
 
-        $app->singleton(ManagerContracts\AccessToken::class, (string)config('doctrine_passport.manager.access_token'));
+        $app->singleton(ManagerContracts\AccessToken::class, (string) config('doctrine_passport.manager.access_token'));
         $app->when(Manager\AccessToken::class)
             ->needs('$model')
             ->giveConfig('doctrine_passport.models.access_token');
 
-        $app->singleton(ManagerContracts\AuthCode::class, (string)config('doctrine_passport.manager.auth_code'));
+        $app->singleton(ManagerContracts\AuthCode::class, (string) config('doctrine_passport.manager.auth_code'));
         $app->when(Manager\AuthCodeManager::class)
             ->needs('$model')
             ->giveConfig('doctrine_passport.models.auth_code');
 
-        $app->singleton(ManagerContracts\Client::class, (string)config('doctrine_passport.manager.client'));
+        $app->singleton(ManagerContracts\Client::class, (string) config('doctrine_passport.manager.client'));
         $app->when(Manager\ClientManager::class)
             ->needs('$model')
             ->giveConfig('doctrine_passport.models.client');
@@ -113,12 +109,12 @@ class PassportServiceProvider extends ServiceProvider
             ->needs('$personalAccessClientSecret')
             ->giveConfig('passport.personal_access_client.secret', null);
 
-        $app->singleton(ManagerContracts\PersonalAccessClient::class, (string)config('doctrine_passport.manager.personal_access_client'));
+        $app->singleton(ManagerContracts\PersonalAccessClient::class, (string) config('doctrine_passport.manager.personal_access_client'));
         $app->when(Manager\PersonalAccessClientManager::class)
             ->needs('$model')
             ->giveConfig('doctrine_passport.models.personal_access_client');
 
-        $app->singleton(ManagerContracts\RefreshToken::class, (string)config('doctrine_passport.manager.refresh_token'));
+        $app->singleton(ManagerContracts\RefreshToken::class, (string) config('doctrine_passport.manager.refresh_token'));
         $app->when(Manager\RefreshToken::class)
             ->needs('$model')
             ->giveConfig('doctrine_passport.models.refresh_token');

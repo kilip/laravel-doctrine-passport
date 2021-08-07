@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Bridge;
+namespace Tests\LaravelDoctrine\Passport\Unit\Bridge;
 
 use Laravel\Passport\Bridge\AccessToken as AccessTokenEntity;
 use Laravel\Passport\Bridge\Client as ClientEntity;
@@ -23,9 +23,9 @@ use LaravelDoctrine\Passport\Contracts\Model\User as UserModel;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use Mockery as m;
-use Tests\LaravelDoctrine\Passport\TestCase;
+use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
-class AccessTokenRepositoryTest extends TestCase
+class AccessTokenRepositoryUnitTest extends UnitTestCase
 {
     use RepositoryTestTrait;
 

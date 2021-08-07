@@ -27,6 +27,6 @@ return [
         'auth_code' => LaravelDoctrine\Passport\Manager\AuthCodeManager::class,
         'client' => LaravelDoctrine\Passport\Manager\ClientManager::class,
         'refresh_token' => LaravelDoctrine\Passport\Manager\RefreshToken::class,
-        'personal_access_client' => LaravelDoctrine\Passport\Manager\PersonalAccessClientManager::class
-    ]
+        'personal_access_client' => LaravelDoctrine\Passport\Manager\PersonalAccessClientManager::class,
+    ],
 ];

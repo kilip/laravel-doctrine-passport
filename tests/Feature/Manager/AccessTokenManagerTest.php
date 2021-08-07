@@ -11,13 +11,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Functional\Manager;
+namespace Tests\LaravelDoctrine\Passport\Feature\Manager;
 
 use LaravelDoctrine\Passport\Contracts\Manager\AccessToken;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use Mockery as m;
-use Tests\LaravelDoctrine\Passport\ORMTesting;
-use Tests\LaravelDoctrine\Passport\TestCase;
+use Tests\LaravelDoctrine\Passport\Feature\ORMTesting;
+use Tests\LaravelDoctrine\Passport\Feature\TestCase;
 use function app;
 
 class AccessTokenManagerTest extends TestCase

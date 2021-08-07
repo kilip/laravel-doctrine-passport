@@ -11,23 +11,23 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Manager;
+namespace Tests\LaravelDoctrine\Passport\Unit\Manager;
 
+use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClient as PersonalAccessClientManager;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Events\ClientRemoved;
-use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClient as PersonalAccessClientManager;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
 use LaravelDoctrine\Passport\Manager;
 use LaravelDoctrine\Passport\Manager\ClientManager;
 use LaravelDoctrine\Passport\Model;
 use Mockery as m;
-use Tests\LaravelDoctrine\Passport\TestCase;
+use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
 /**
  * @covers \LaravelDoctrine\Passport\Manager\ClientManager
  * @covers \LaravelDoctrine\Passport\Exception\RuntimeException
  */
-class ClientManagerTest extends TestCase
+class ClientManagerUnitTest extends UnitTestCase
 {
     use TestModelManager;
 
@@ -54,14 +54,14 @@ class ClientManagerTest extends TestCase
     {
         $this->modelClass   = Model\Client::class;
         $this->managerClass = Manager\ClientManager::class;
-        $this->pacManager = m::mock(PersonalAccessClientManager::class);
+        $this->pacManager   = m::mock(PersonalAccessClientManager::class);
         $this->manager      = new $this->managerClass(
             $this->em,
             $this->pacManager,
             $this->dispatcher,
+            Model\Client::class,
             'pac_id',
             'pac_secret',
-            Model\Client::class
         );
     }
 
@@ -201,9 +201,9 @@ class ClientManagerTest extends TestCase
             $this->em,
             $this->pacManager,
             $this->dispatcher,
+            $this->modelClass,
             null,
-            'secret',
-            $this->modelClass
+            'secret'
         );
         $this->assertSame($client, $manager->personalAccessClient());
 
@@ -263,7 +263,6 @@ class ClientManagerTest extends TestCase
 
         $this->configureSaveMock(false);
         $this->configureUserRepositoryMock();
-
 
         $client = $manager->createPersonalAccessClient('user-id', 'name', 'redirect');
         $this->assertInstanceOf(ModelContracts\Client::class, $client);

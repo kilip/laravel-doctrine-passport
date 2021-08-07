@@ -18,9 +18,9 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use LaravelDoctrine\Passport\Contracts\Manager\Client as ClientManagerContract;
+use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClient as PersonalAccessClientManager;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientContract;
 use LaravelDoctrine\Passport\Contracts\Model\User as UserContract;
-use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClient as PersonalAccessClientManager;
 use LaravelDoctrine\Passport\Events\ClientRemoved;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
 use LaravelDoctrine\Passport\Model\Client;
@@ -44,12 +44,12 @@ class ClientManager implements ClientManagerContract
     private Dispatcher $dispatcher;
 
     /**
-     * @param EntityManagerInterface $em
+     * @param EntityManagerInterface      $em
      * @param PersonalAccessClientManager $pacManager
-     * @param Dispatcher $dispatcher
-     * @param string $model
-     * @param int|string|null $personalAccessClientId
-     * @param ?string $personalAccessClientSecret
+     * @param Dispatcher                  $dispatcher
+     * @param string                      $model
+     * @param int|string|null             $personalAccessClientId
+     * @param ?string                     $personalAccessClientSecret
      */
     public function __construct(
         EntityManagerInterface $em,
@@ -64,7 +64,7 @@ class ClientManager implements ClientManagerContract
         $this->personalAccessClientId     = $personalAccessClientId;
         $this->personalAccessClientSecret = $personalAccessClientSecret;
         $this->dispatcher                 = $dispatcher;
-        $this->pacManager = $pacManager;
+        $this->pacManager                 = $pacManager;
     }
 
     /**
@@ -157,6 +157,7 @@ class ClientManager implements ClientManagerContract
 
     /**
      * {@inheritDoc}
+     *
      * @psalm-suppress LessSpecificReturnStatement
      * @psalm-suppress InvalidStringClass
      */
@@ -169,7 +170,7 @@ class ClientManager implements ClientManagerContract
             throw RuntimeException::clientUserNotFoundException($userId);
         }
 
-        $class = $this->class;
+        $class  = $this->class;
         $client = new $class(
             $user,
             $name,
@@ -188,6 +189,7 @@ class ClientManager implements ClientManagerContract
 
     /**
      * {@inheritDoc}
+     *
      * @psalm-suppress LessSpecificReturnStatement
      */
     public function createPersonalAccessClient($userId, $name, $redirect)
@@ -200,6 +202,7 @@ class ClientManager implements ClientManagerContract
 
     /**
      * {@inheritDoc}
+     *
      * @psalm-suppress LessSpecificReturnStatement
      * @psalm-suppress MoreSpecificReturnType
      */

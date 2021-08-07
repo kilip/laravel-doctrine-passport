@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Bridge;
+namespace Tests\LaravelDoctrine\Passport\Unit\Bridge;
 
 use Laravel\Passport\Bridge\Client as ClientEntity;
 use LaravelDoctrine\Passport\Bridge\AuthCodeRepository;
 use League\OAuth2\Server\Entities\AuthCodeEntityInterface;
 use Mockery as m;
-use Tests\LaravelDoctrine\Passport\TestCase;
+use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
-class AuthCodeRepositoryTest extends TestCase
+class AuthCodeRepositoryUnitTest extends UnitTestCase
 {
     use RepositoryTestTrait;
 

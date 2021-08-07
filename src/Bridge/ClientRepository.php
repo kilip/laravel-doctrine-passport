@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Bridge;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Laravel\Passport\Bridge\Client as ClientEntity;
 use Laravel\Passport\Passport;
 use LaravelDoctrine\Passport\Contracts\Manager\Client as ClientManager;

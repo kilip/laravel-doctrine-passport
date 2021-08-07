@@ -11,11 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport;
+namespace Tests\LaravelDoctrine\Passport\Feature;
 
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\ToolsException;
 use LaravelDoctrine\ORM\IlluminateRegistry;
+use function app;
 
 trait ORMTesting
 {

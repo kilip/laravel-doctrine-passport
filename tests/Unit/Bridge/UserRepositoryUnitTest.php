@@ -11,19 +11,19 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Bridge;
+namespace Tests\LaravelDoctrine\Passport\Unit\Bridge;
 
 use Illuminate\Contracts\Hashing\Hasher;
 use Laravel\Passport\Bridge\User as UserEntity;
 use LaravelDoctrine\Passport\Bridge\UserRepository;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use Mockery as m;
-use Tests\LaravelDoctrine\Passport\TestCase;
+use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
 /**
  * @covers \LaravelDoctrine\Passport\Bridge\UserRepository
  */
-class UserRepositoryTest extends TestCase
+class UserRepositoryUnitTest extends UnitTestCase
 {
     use RepositoryTestTrait;
 

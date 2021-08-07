@@ -15,10 +15,10 @@ namespace LaravelDoctrine\Passport\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Contracts\Events\Dispatcher;
+use Laravel\Passport\Events\RefreshTokenCreated;
 use LaravelDoctrine\Passport\Contracts\Manager\RefreshToken as RefreshTokenManagerContract;
 use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContract;
 use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContract;
-use Laravel\Passport\Events\RefreshTokenCreated;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
 
 class RefreshToken implements RefreshTokenManagerContract
@@ -46,7 +46,7 @@ class RefreshToken implements RefreshTokenManagerContract
     {
         $token = new $this->class($id, $accessToken, $expiry, $revoked);
         \assert($token instanceof RefreshTokenContract);
-        $event = new RefreshTokenCreated((string)$token->getId(), (string)$accessToken->getId());
+        $event = new RefreshTokenCreated((string) $token->getId(), (string) $accessToken->getId());
 
         $this->save($token);
         $this->dispatcher->dispatch($event);

@@ -17,7 +17,7 @@ use LaravelDoctrine\Passport\Contracts\Model\AuthCode as AuthCodeModel;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientModel;
 use LaravelDoctrine\Passport\Contracts\Model\User as UserModel;
 
-interface AuthCode extends CanSaveObject
+interface AuthCodeManager extends CanSaveObject
 {
     /**
      * @param string             $identifier

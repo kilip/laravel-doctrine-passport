@@ -19,7 +19,7 @@ use League\OAuth2\Server\Entities\AuthCodeEntityInterface;
 use Mockery as m;
 use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
-class AuthCodeRepositoryUnitTest extends UnitTestCase
+class AuthCodeRepositoryTest extends UnitTestCase
 {
     use RepositoryTestTrait;
 

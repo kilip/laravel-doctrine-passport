@@ -15,9 +15,9 @@ namespace LaravelDoctrine\Passport\Bridge;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Laravel\Passport\Bridge\AuthCode as AuthCodeEntity;
-use LaravelDoctrine\Passport\Contracts\Manager\AuthCode as AuthCodeManager;
-use LaravelDoctrine\Passport\Contracts\Manager\Client as ClientManager;
-use LaravelDoctrine\Passport\Contracts\Manager\User as UserManager;
+use LaravelDoctrine\Passport\Contracts\Manager\AuthCodeManager as AuthCodeManager;
+use LaravelDoctrine\Passport\Contracts\Manager\ClientManager as ClientManager;
+use LaravelDoctrine\Passport\Contracts\Manager\UserManager as UserManager;
 use League\OAuth2\Server\Entities\AuthCodeEntityInterface;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
 

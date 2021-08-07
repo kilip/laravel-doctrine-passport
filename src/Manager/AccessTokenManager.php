@@ -17,10 +17,10 @@ use Carbon\Carbon;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Illuminate\Support\Collection;
-use LaravelDoctrine\Passport\Contracts\Manager\AccessToken as AccessTokenManagerContracts;
+use LaravelDoctrine\Passport\Contracts\Manager\AccessTokenManager as AccessTokenManagerContracts;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 
-class AccessToken implements AccessTokenManagerContracts
+class AccessTokenManager implements AccessTokenManagerContracts
 {
     use HasRepository;
 

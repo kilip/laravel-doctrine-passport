@@ -15,7 +15,7 @@ namespace LaravelDoctrine\Passport\Bridge;
 
 use Laravel\Passport\Bridge\Client as ClientEntity;
 use Laravel\Passport\Passport;
-use LaravelDoctrine\Passport\Contracts\Manager\Client as ClientManager;
+use LaravelDoctrine\Passport\Contracts\Manager\ClientManager as ClientManager;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientModel;
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 

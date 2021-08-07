@@ -15,7 +15,7 @@ namespace LaravelDoctrine\Passport\Bridge;
 
 use Illuminate\Contracts\Hashing\Hasher;
 use Laravel\Passport\Bridge\User as UserEntity;
-use LaravelDoctrine\Passport\Contracts\Manager\User as UserManager;
+use LaravelDoctrine\Passport\Contracts\Manager\UserManager as UserManager;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\UserRepositoryInterface;
 

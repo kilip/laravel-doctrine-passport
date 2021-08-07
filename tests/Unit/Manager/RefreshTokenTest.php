@@ -17,16 +17,16 @@ use Laravel\Passport\Events\RefreshTokenCreated;
 use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContract;
 use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContract;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
-use LaravelDoctrine\Passport\Manager\RefreshToken as RefreshTokenManager;
+use LaravelDoctrine\Passport\Manager\RefreshTokenManager as RefreshTokenManager;
 use LaravelDoctrine\Passport\Model\RefreshToken as RefreshTokenModel;
 use Mockery as m;
 use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
 /**
- * @covers \LaravelDoctrine\Passport\Manager\RefreshToken
+ * @covers \LaravelDoctrine\Passport\Manager\RefreshTokenManager
  * @covers \LaravelDoctrine\Passport\Exception\RuntimeException
  */
-class RefreshTokenUnitTest extends UnitTestCase
+class RefreshTokenTest extends UnitTestCase
 {
     use TestModelManager;
 

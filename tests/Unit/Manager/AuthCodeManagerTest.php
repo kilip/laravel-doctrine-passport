@@ -13,25 +13,25 @@ declare(strict_types=1);
 
 namespace Tests\LaravelDoctrine\Passport\Unit\Manager;
 
-use LaravelDoctrine\Passport\Manager\AuthCodeManager;
+use LaravelDoctrine\Passport\Manager\AuthCodeManagerManager;
 use LaravelDoctrine\Passport\Model\AuthCode as AuthCodeModel;
 use Mockery as m;
 use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
 /**
- * @covers \LaravelDoctrine\Passport\Manager\AuthCodeManager
+ * @covers \LaravelDoctrine\Passport\Manager\AuthCodeManagerManager
  */
-class AuthCodeManagerUnitTest extends UnitTestCase
+class AuthCodeManagerTest extends UnitTestCase
 {
     use TestModelManager;
 
-    private AuthCodeManager $manager;
+    private AuthCodeManagerManager $manager;
 
     public function configureManager(): void
     {
-        $this->managerClass = AuthCodeManager::class;
+        $this->managerClass = AuthCodeManagerManager::class;
         $this->modelClass   = AuthCodeModel::class;
-        $this->manager      = new AuthCodeManager(
+        $this->manager      = new AuthCodeManagerManager(
             $this->em,
             $this->modelClass
         );

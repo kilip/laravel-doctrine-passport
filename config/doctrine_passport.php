@@ -23,10 +23,10 @@ return [
         'refresh_token' => LaravelDoctrine\Passport\Model\RefreshToken::class,
     ],
     'manager' => [
-        'access_token' => LaravelDoctrine\Passport\Manager\AccessToken::class,
-        'auth_code' => LaravelDoctrine\Passport\Manager\AuthCodeManager::class,
+        'access_token' => LaravelDoctrine\Passport\Manager\AccessTokenManager::class,
+        'auth_code' => LaravelDoctrine\Passport\Manager\AuthCodeManagerManager::class,
         'client' => LaravelDoctrine\Passport\Manager\ClientManager::class,
-        'refresh_token' => LaravelDoctrine\Passport\Manager\RefreshToken::class,
+        'refresh_token' => LaravelDoctrine\Passport\Manager\RefreshTokenManager::class,
         'personal_access_client' => LaravelDoctrine\Passport\Manager\PersonalAccessClientManager::class,
     ],
 ];

@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace LaravelDoctrine\Passport\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
-use LaravelDoctrine\Passport\Contracts\Manager\AuthCode as AuthCodeManagerContract;
+use LaravelDoctrine\Passport\Contracts\Manager\AuthCodeManager as AuthCodeManagerContract;
 use LaravelDoctrine\Passport\Contracts\Model\AuthCode as AuthCodeModel;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientModel;
 use LaravelDoctrine\Passport\Contracts\Model\User as UserModel;
 use LaravelDoctrine\Passport\Model\AuthCode;
 
-class AuthCodeManager implements AuthCodeManagerContract
+class AuthCodeManagerManager implements AuthCodeManagerContract
 {
     use HasRepository;
 

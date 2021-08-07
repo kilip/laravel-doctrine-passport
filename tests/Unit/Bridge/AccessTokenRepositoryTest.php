@@ -25,7 +25,7 @@ use League\OAuth2\Server\Entities\ClientEntityInterface;
 use Mockery as m;
 use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
-class AccessTokenRepositoryUnitTest extends UnitTestCase
+class AccessTokenRepositoryTest extends UnitTestCase
 {
     use RepositoryTestTrait;
 

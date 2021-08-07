@@ -23,7 +23,7 @@ use Mockery as m;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\LaravelDoctrine\Passport\Fixtures\Model\User;
 
-class TestCase extends BaseTestCase
+class FeatureTestCase extends BaseTestCase
 {
     protected function getPackageProviders($app)
     {

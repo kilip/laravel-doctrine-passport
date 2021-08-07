@@ -19,7 +19,7 @@ use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContrac
 /**
  * @see RefreshTokenRepository
  */
-interface RefreshToken extends CanSaveObject
+interface RefreshTokenManager extends CanSaveObject
 {
     /**
      * Creates a new refresh token.

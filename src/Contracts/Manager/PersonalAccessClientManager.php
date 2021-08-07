@@ -15,7 +15,7 @@ namespace LaravelDoctrine\Passport\Contracts\Manager;
 
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientModel;
 
-interface PersonalAccessClient extends CanSaveObject
+interface PersonalAccessClientManager extends CanSaveObject
 {
     /**
      * @param object|ClientModel $client

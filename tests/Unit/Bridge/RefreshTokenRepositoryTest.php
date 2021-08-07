@@ -22,7 +22,7 @@ use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 /**
  * @covers \LaravelDoctrine\Passport\Bridge\RefreshTokenRepository
  */
-class RefreshTokenRepositoryUnitTest extends UnitTestCase
+class RefreshTokenRepositoryTest extends UnitTestCase
 {
     use RepositoryTestTrait;
 

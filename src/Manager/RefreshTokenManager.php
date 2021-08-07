@@ -16,12 +16,12 @@ namespace LaravelDoctrine\Passport\Manager;
 use Doctrine\ORM\EntityManagerInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 use Laravel\Passport\Events\RefreshTokenCreated;
-use LaravelDoctrine\Passport\Contracts\Manager\RefreshToken as RefreshTokenManagerContract;
+use LaravelDoctrine\Passport\Contracts\Manager\RefreshTokenManager as RefreshTokenManagerContract;
 use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContract;
 use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContract;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
 
-class RefreshToken implements RefreshTokenManagerContract
+class RefreshTokenManager implements RefreshTokenManagerContract
 {
     use HasRepository;
 

@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace LaravelDoctrine\Passport\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
-use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClient as PersonalAccessClientManagerContract;
+use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClientManager as PersonalAccessClientManagerContract;
 
 class PersonalAccessClientManager implements PersonalAccessClientManagerContract
 {

@@ -17,25 +17,25 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\QueryBuilder;
 use Illuminate\Support\Collection;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
-use LaravelDoctrine\Passport\Manager\AccessToken;
+use LaravelDoctrine\Passport\Manager\AccessTokenManager;
 use LaravelDoctrine\Passport\Model;
 use Mockery as m;
 use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
-class AccessTokenManagerUnitTest extends UnitTestCase
+class AccessTokenManagerTest extends UnitTestCase
 {
     use TestModelManager;
 
-    private AccessToken $manager;
+    private AccessTokenManager $manager;
 
     public function configureManager(): void
     {
         $this->modelClass = Model\AccessToken::class;
-        $this->manager    = new AccessToken(
+        $this->manager    = new AccessTokenManager(
             $this->em,
             Model\AccessToken::class
         );
-        $this->managerClass = AccessToken::class;
+        $this->managerClass = AccessTokenManager::class;
     }
 
     public function test_it_should_create_new_token()

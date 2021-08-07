@@ -16,8 +16,8 @@ namespace LaravelDoctrine\Passport\Bridge;
 use Illuminate\Contracts\Events\Dispatcher;
 use Laravel\Passport\Bridge\RefreshToken as RefreshTokenEntity;
 use Laravel\Passport\Events\RefreshTokenCreated;
-use LaravelDoctrine\Passport\Contracts\Manager\AccessToken as AccessTokenManager;
-use LaravelDoctrine\Passport\Contracts\Manager\RefreshToken as RefreshTokenManager;
+use LaravelDoctrine\Passport\Contracts\Manager\AccessTokenManager as AccessTokenManager;
+use LaravelDoctrine\Passport\Contracts\Manager\RefreshTokenManager as RefreshTokenManager;
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 

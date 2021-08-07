@@ -19,7 +19,7 @@ use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 /**
  * @see \Laravel\Passport\TokenRepository
  */
-interface AccessToken extends CanSaveObject
+interface AccessTokenManager extends CanSaveObject
 {
     /**
      * creates a new access token.

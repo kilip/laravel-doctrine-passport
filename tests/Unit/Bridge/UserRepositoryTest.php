@@ -23,7 +23,7 @@ use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 /**
  * @covers \LaravelDoctrine\Passport\Bridge\UserRepository
  */
-class UserRepositoryUnitTest extends UnitTestCase
+class UserRepositoryTest extends UnitTestCase
 {
     use RepositoryTestTrait;
 

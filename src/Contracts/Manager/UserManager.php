@@ -15,7 +15,7 @@ namespace LaravelDoctrine\Passport\Contracts\Manager;
 
 use LaravelDoctrine\Passport\Contracts\Model\User as UserModel;
 
-interface User
+interface UserManager
 {
     /**
      * @param int|string|null $userIdentifier

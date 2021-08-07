@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\LaravelDoctrine\Passport\Unit\Manager;
 
-use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClient as PersonalAccessClientManager;
+use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClientManager as PersonalAccessClientManager;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Events\ClientRemoved;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
@@ -27,7 +27,7 @@ use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
  * @covers \LaravelDoctrine\Passport\Manager\ClientManager
  * @covers \LaravelDoctrine\Passport\Exception\RuntimeException
  */
-class ClientManagerUnitTest extends UnitTestCase
+class ClientManagerTest extends UnitTestCase
 {
     use TestModelManager;
 

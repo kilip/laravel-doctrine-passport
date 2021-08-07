@@ -27,7 +27,7 @@ use LaravelDoctrine\Passport\Providers\PassportServiceProvider;
 /**
  * @covers \LaravelDoctrine\Passport\Providers\PassportServiceProvider
  */
-class PassportServiceProviderTest extends TestCase
+class PassportServiceProviderFeatureTest extends FeatureTestCase
 {
     public function test_providers_loaded()
     {
@@ -95,11 +95,11 @@ class PassportServiceProviderTest extends TestCase
     public function getManagers(): array
     {
         return [
-            [ManagerContracts\AccessToken::class, Managers\AccessToken::class],
-            [ManagerContracts\AuthCode::class, Managers\AuthCodeManager::class],
-            [ManagerContracts\PersonalAccessClient::class, Managers\PersonalAccessClientManager::class],
-            [ManagerContracts\Client::class, Managers\ClientManager::class],
-            [ManagerContracts\RefreshToken::class, Managers\RefreshToken::class],
+            [ManagerContracts\AccessTokenManager::class, Managers\AccessTokenManager::class],
+            [ManagerContracts\AuthCodeManager::class, Managers\AuthCodeManagerManager::class],
+            [ManagerContracts\PersonalAccessClientManager::class, Managers\PersonalAccessClientManager::class],
+            [ManagerContracts\ClientManager::class, Managers\ClientManager::class],
+            [ManagerContracts\RefreshTokenManager::class, Managers\RefreshTokenManager::class],
         ];
     }
 }

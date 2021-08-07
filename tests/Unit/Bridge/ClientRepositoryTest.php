@@ -14,9 +14,9 @@ declare(strict_types=1);
 namespace Tests\LaravelDoctrine\Passport\Unit\Bridge;
 
 use LaravelDoctrine\Passport\Bridge\ClientRepository;
-use PHPUnit\Framework\TestCase;
+use Tests\LaravelDoctrine\Passport\Unit\UnitTestCase;
 
-class ClientRepositoryTest extends TestCase
+class ClientRepositoryTest extends UnitTestCase
 {
     use RepositoryTestTrait;
 

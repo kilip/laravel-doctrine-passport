@@ -14,11 +14,11 @@ declare(strict_types=1);
 namespace Tests\LaravelDoctrine\Passport\Unit\Bridge;
 
 use Illuminate\Events\Dispatcher;
-use LaravelDoctrine\Passport\Contracts\Manager\AccessToken as AccessTokenManager;
-use LaravelDoctrine\Passport\Contracts\Manager\AuthCode as AuthCodeManager;
-use LaravelDoctrine\Passport\Contracts\Manager\Client as ClientManager;
-use LaravelDoctrine\Passport\Contracts\Manager\RefreshToken as RefreshTokenManager;
-use LaravelDoctrine\Passport\Contracts\Manager\User as UserManager;
+use LaravelDoctrine\Passport\Contracts\Manager\AccessTokenManager as AccessTokenManager;
+use LaravelDoctrine\Passport\Contracts\Manager\AuthCodeManager as AuthCodeManager;
+use LaravelDoctrine\Passport\Contracts\Manager\ClientManager as ClientManager;
+use LaravelDoctrine\Passport\Contracts\Manager\RefreshTokenManager as RefreshTokenManager;
+use LaravelDoctrine\Passport\Contracts\Manager\UserManager as UserManager;
 use LaravelDoctrine\Passport\Contracts\Model\AccessToken as TokenModel;
 use LaravelDoctrine\Passport\Contracts\Model\AuthCode as AuthCodeModel;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientModel;

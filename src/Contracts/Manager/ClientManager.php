@@ -20,7 +20,7 @@ use LaravelDoctrine\Passport\Contracts\Model\Client as ClientContract;
 /**
  * @see ClientRepository
  */
-interface Client extends CanSaveObject
+interface ClientManager extends CanSaveObject
 {
     /**
      * Get a client by the given ID.

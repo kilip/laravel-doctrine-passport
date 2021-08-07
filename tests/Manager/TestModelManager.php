@@ -61,6 +61,11 @@ trait TestModelManager
      */
     private $accessToken;
 
+    /**
+     * @var ModelContracts\AuthCode|m\LegacyMockInterface|m\MockInterface
+     */
+    private $authCode;
+
     public function setUp(): void
     {
         $this->em           = m::mock(EntityManagerInterface::class);
@@ -70,6 +75,7 @@ trait TestModelManager
         $this->user         = m::mock(ModelContracts\User::class);
         $this->accessToken  = m::mock(ModelContracts\AccessToken::class);
         $this->refreshToken = m::mock(ModelContracts\RefreshToken::class);
+        $this->authCode     = m::mock(ModelContracts\AuthCode::class);
 
         $this->configureManager();
 

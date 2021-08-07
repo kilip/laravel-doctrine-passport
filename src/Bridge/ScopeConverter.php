@@ -23,6 +23,9 @@ trait ScopeConverter
      * @param array $scopes
      *
      * @return array
+     *
+     * @psalm-suppress MissingClosureReturnType
+     * @psalm-suppress MixedMethodCall
      */
     public function scopesToArray(array $scopes)
     {

@@ -1,7 +1,7 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
-    <entity name="LaravelDoctrine\Passport\Model\Client">
+    <entity name="LaravelDoctrine\Passport\Model\Client" table="oauth_clients">
         <id name="id" type="bigint"/>
         <many-to-one field="user" target-entity="LaravelDoctrine\Passport\Contracts\Model\User"/>
         <field name="name"/>

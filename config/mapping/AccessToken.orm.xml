@@ -2,7 +2,7 @@
         xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
         xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
-    <entity name="LaravelDoctrine\Passport\Model\AccessToken">
+    <entity name="LaravelDoctrine\Passport\Model\AccessToken" table="oauth_acesss_tokens">
         <id name="id" type="string"/>
         <many-to-one field="user" target-entity="LaravelDoctrine\Passport\Contracts\Model\User"/>
         <many-to-one field="client" target-entity="LaravelDoctrine\Passport\Contracts\Model\Client"/>

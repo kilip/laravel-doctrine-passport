@@ -1,7 +1,7 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
-    <entity name="LaravelDoctrine\Passport\Model\PersonalAccessClient">
+    <entity name="LaravelDoctrine\Passport\Model\PersonalAccessClient" table="oauth_personal_access_clients">
         <id name="id" type="bigint"/>
         <many-to-one field="client" target-entity="LaravelDoctrine\Passport\Contracts\Model\Client"/>
         <field name="createdAt" type="datetime">

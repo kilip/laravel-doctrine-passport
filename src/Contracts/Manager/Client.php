@@ -34,11 +34,11 @@ interface Client extends CanSaveObject
     /**
      * Get an active client by the given ID.
      *
-     * @param int $id
+     * @param string $id
      *
      * @return ClientContract|null
      */
-    public function findActive($id);
+    public function findActive(string $id): ?ClientContract;
 
     /**
      * Get a client instance for the given ID and user ID.

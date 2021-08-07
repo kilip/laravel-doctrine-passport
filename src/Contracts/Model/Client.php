@@ -22,6 +22,30 @@ interface Client extends Identifiable, Revokable, HasUser
     public function setSecret(string $secret): void;
 
     /**
+     * @param array $grantTypes
+     */
+    public function setGrantTypes(array $grantTypes): void;
+
+    /**
+     * Returns grant types.
+     *
+     * @return array
+     */
+    public function getGrantTypes(): array;
+
+    /**
+     * @return bool
+     */
+    public function confidential(): bool;
+
+    /**
+     * Determine if the client is a "first party" client.
+     *
+     * @return bool
+     */
+    public function firstParty(): bool;
+
+    /**
      * @return string
      */
     public function getName(): string;

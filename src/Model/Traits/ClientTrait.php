@@ -54,6 +54,11 @@ trait ClientTrait
      */
     protected bool $passwordClient;
 
+    /**
+     * @var array
+     */
+    protected array $grantTypes = [];
+
     public function __construct(
         User $user,
         string $name,
@@ -72,6 +77,38 @@ trait ClientTrait
         $this->personalAccessClient = $personalAccessClient;
         $this->passwordClient       = $passwordClient;
         $this->revoked              = $revoked;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function confidential(): bool
+    {
+        return ! empty($this->secret);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function firstParty(): bool
+    {
+        return $this->isPersonalAccessClient() || $this->isPasswordClient();
+    }
+
+    /**
+     * @return array
+     */
+    public function getGrantTypes(): array
+    {
+        return $this->grantTypes;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setGrantTypes(array $grantTypes): void
+    {
+        $this->grantTypes = $grantTypes;
     }
 
     /**

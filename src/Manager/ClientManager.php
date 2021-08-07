@@ -74,7 +74,7 @@ class ClientManager implements ClientManagerContract
      * @psalm-suppress MixedInferredReturnType
      * @psalm-suppress MixedReturnStatement
      */
-    public function findActive($id)
+    public function findActive($id): ?ClientContract
     {
         // add custom client key name
         return $this->getRepository()->findOneBy([

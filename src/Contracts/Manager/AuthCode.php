@@ -13,14 +13,20 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Contracts\Manager;
 
+use LaravelDoctrine\Passport\Contracts\Model\Client as ClientModel;
 use LaravelDoctrine\Passport\Contracts\Model\User as UserModel;
 
-interface User
+interface AuthCode
 {
-    /**
-     * @param int|string|null $userIdentifier
-     *
-     * @return UserModel|null
-     */
-    public function find($userIdentifier): ?UserModel;
+    public function create(
+        string $getIdentifier,
+        UserModel $user,
+        ClientModel $client,
+        array $scopesToArray,
+        \DateTimeImmutable $getExpiryDateTime
+    ): void;
+
+    public function isRevoked(string $codeId): bool;
+
+    public function revoke(string $codeId): void;
 }

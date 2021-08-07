@@ -32,8 +32,14 @@ class PersonalAccessClientManager implements PersonalAccessClientManagerContract
         $this->class = $model;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @psalm-suppress InvalidStringClass
+     */
     public function create($client): void
     {
-        // TODO: Implement create() method.
+        $pac = new $this->class($client);
+        $this->save($pac);
     }
 }

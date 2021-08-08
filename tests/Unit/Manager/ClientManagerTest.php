@@ -189,11 +189,12 @@ class ClientManagerTest extends UnitTestCase
             ->find('pac_id')->once()
             ->andReturns($client);
 
-        $repo->shouldReceive()
-            ->findOneBy(
+        $repo->shouldReceive('findBy')
+            ->with(
                 [],
-                ['id' => 'DESC']
-            )->times(2)->andReturns($client, null);
+                ['createdAt' => 'ASC'],
+                1
+            )->times(2)->andReturns([$client], []);
 
         $this->assertSame($client, $manager->personalAccessClient());
 

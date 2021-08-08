@@ -145,13 +145,13 @@ class ClientManager implements ClientManagerContract
             return $this->find($this->personalAccessClientId);
         }
 
-        $client = $this->getRepository()->findOneBy([]);
-
-        if (null === $client) {
+        /** @var ClientContract[] $clients */
+        $clients = $this->getRepository()->findBy([], ['createdAt' => 'ASC'], 1);
+        if (\count($clients) < 1) {
             throw RuntimeException::createPersonalAccessClientNotFound();
         }
 
-        return $client;
+        return $clients[0];
     }
 
     /**

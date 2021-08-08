@@ -36,6 +36,7 @@ jobs:
 
       - name: Psalm
         run: vendor/bin/psalm --threads=2 --shepherd --stats
+        continue-on-error: true
 
       - name: PHPStan
         run: php vendor/bin/phpstan analyse --error-format=checkstyle --no-progress | cs2pr

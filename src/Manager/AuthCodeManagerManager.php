@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Manager;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use LaravelDoctrine\Passport\Contracts\Manager\AuthCodeManager as AuthCodeManagerContract;
 use LaravelDoctrine\Passport\Contracts\Model\AuthCode as AuthCodeModel;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientModel;
@@ -25,10 +25,10 @@ class AuthCodeManagerManager implements AuthCodeManagerContract
     use HasRepository;
 
     public function __construct(
-        EntityManagerInterface $em,
+        ObjectManager $om,
         string $model
     ) {
-        $this->em    = $em;
+        $this->om    = $om;
         $this->class = $model;
     }
 

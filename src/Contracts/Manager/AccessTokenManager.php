@@ -31,7 +31,7 @@ interface AccessTokenManager extends CanSaveObject
      * @param array|null               $scopes
      * @param bool                     $revoked
      *
-     * @return ModelContracts\AccessToken
+     * @return object|ModelContracts\AccessToken
      */
     public function create(
         string $id,
@@ -39,16 +39,16 @@ interface AccessTokenManager extends CanSaveObject
         ?ModelContracts\User $user,
         ?string $name=null,
         ?array $scopes=null,
-        bool $revoked = false): ModelContracts\AccessToken;
+        bool $revoked = false);
 
     /**
      * Get a token by the given ID.
      *
      * @param string $id
      *
-     * @return ModelContracts\AccessToken|null
+     * @return object|ModelContracts\AccessToken|null
      */
-    public function find(string $id): ?ModelContracts\AccessToken;
+    public function find(string $id);
 
     /**
      * Get a token by the given user ID and token ID.
@@ -56,9 +56,9 @@ interface AccessTokenManager extends CanSaveObject
      * @param string     $id
      * @param string|int $userId
      *
-     * @return ModelContracts\AccessToken|null
+     * @return ModelContracts\AccessToken|object|null
      */
-    public function findForUser(string $id, $userId): ?ModelContracts\AccessToken;
+    public function findForUser(string $id, $userId);
 
     /**
      * Get the token instances for the given user ID.
@@ -75,9 +75,9 @@ interface AccessTokenManager extends CanSaveObject
      * @param ModelContracts\User   $user
      * @param ModelContracts\Client $client
      *
-     * @return ModelContracts\AccessToken|null
+     * @return ModelContracts\AccessToken|object|null
      */
-    public function getValidToken(ModelContracts\User $user, ModelContracts\Client $client): ?ModelContracts\AccessToken;
+    public function getValidToken(ModelContracts\User $user, ModelContracts\Client $client);
 
     /**
      * Revoke an access token.
@@ -96,14 +96,4 @@ interface AccessTokenManager extends CanSaveObject
      * @return bool
      */
     public function isAccessTokenRevoked(string $id): bool;
-
-    /**
-     * Find a valid token for the given user and client.
-     *
-     * @param ModelContracts\User   $user
-     * @param ModelContracts\Client $client
-     *
-     * @return ModelContracts\AccessToken|null
-     */
-    public function findValidToken(ModelContracts\User $user, ModelContracts\Client $client): ?ModelContracts\AccessToken;
 }

@@ -13,17 +13,15 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Manager;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use LaravelDoctrine\Passport\Contracts\Manager\ClientManager as ClientManagerContract;
 use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClientManager as PersonalAccessClientManager;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientContract;
-use LaravelDoctrine\Passport\Contracts\Model\User as UserContract;
 use LaravelDoctrine\Passport\Events\ClientRemoved;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
-use LaravelDoctrine\Passport\Model\Client;
 
 class ClientManager implements ClientManagerContract
 {
@@ -44,22 +42,23 @@ class ClientManager implements ClientManagerContract
     private Dispatcher $dispatcher;
 
     /**
-     * @param EntityManagerInterface      $em
+     * @param ObjectManager               $om
      * @param PersonalAccessClientManager $pacManager
      * @param Dispatcher                  $dispatcher
      * @param string                      $model
      * @param int|string|null             $personalAccessClientId
      * @param ?string                     $personalAccessClientSecret
+     * @psalm-param class-string $model
      */
     public function __construct(
-        EntityManagerInterface $em,
+        ObjectManager $om,
         PersonalAccessClientManager $pacManager,
         Dispatcher $dispatcher,
         string $model,
         $personalAccessClientId,
         ?string $personalAccessClientSecret
     ) {
-        $this->em                         = $em;
+        $this->om                         = $om;
         $this->class                      = $model;
         $this->personalAccessClientId     = $personalAccessClientId;
         $this->personalAccessClientSecret = $personalAccessClientSecret;
@@ -146,7 +145,7 @@ class ClientManager implements ClientManagerContract
             return $this->find($this->personalAccessClientId);
         }
 
-        $client = $this->getRepository()->findOneBy([], ['id' => 'DESC']);
+        $client = $this->getRepository()->findOneBy([]);
 
         if (null === $client) {
             throw RuntimeException::createPersonalAccessClientNotFound();
@@ -161,15 +160,8 @@ class ClientManager implements ClientManagerContract
      * @psalm-suppress LessSpecificReturnStatement
      * @psalm-suppress InvalidStringClass
      */
-    public function create($userId, $name, $redirect, $provider = null, $personalAccess = false, $password = false, $confidential = true)
+    public function create($user, $name, $redirect, $provider = null, $personalAccess = false, $password = false, $confidential = true)
     {
-        $repo = $this->em->getRepository(UserContract::class);
-        $user = $repo->find($userId);
-
-        if (null === $user) {
-            throw RuntimeException::clientUserNotFoundException($userId);
-        }
-
         $class  = $this->class;
         $client = new $class(
             $user,
@@ -192,9 +184,9 @@ class ClientManager implements ClientManagerContract
      *
      * @psalm-suppress LessSpecificReturnStatement
      */
-    public function createPersonalAccessClient($userId, $name, $redirect)
+    public function createPersonalAccessClient($user, $name, $redirect)
     {
-        $client = $this->create($userId, $name, $redirect, null, true);
+        $client = $this->create($user, $name, $redirect, null, true);
         $this->pacManager->create($client);
 
         return $client;
@@ -206,15 +198,15 @@ class ClientManager implements ClientManagerContract
      * @psalm-suppress LessSpecificReturnStatement
      * @psalm-suppress MoreSpecificReturnType
      */
-    public function createPasswordGrantClient($userId, $name, $redirect, $provider = null)
+    public function createPasswordGrantClient($user, $name, $redirect, $provider = null): ClientContract
     {
-        return $this->create($userId, $name, $redirect, $provider, false, true);
+        return $this->create($user, $name, $redirect, $provider, false, true);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function update(ClientContract $client, $name, $redirect)
+    public function update(ClientContract $client, $name, $redirect): ClientContract
     {
         $client->setName($name);
         $client->setRedirect($redirect);
@@ -226,7 +218,7 @@ class ClientManager implements ClientManagerContract
     /**
      * {@inheritDoc}
      */
-    public function regenerateSecret(ClientContract $client)
+    public function regenerateSecret(ClientContract $client): ClientContract
     {
         $client->setSecret(Str::random(40));
         $this->save($client);
@@ -237,7 +229,7 @@ class ClientManager implements ClientManagerContract
     /**
      * {@inheritDoc}
      */
-    public function revoked($id)
+    public function revoked($id): bool
     {
         $client = $this->find($id);
 
@@ -247,16 +239,16 @@ class ClientManager implements ClientManagerContract
     /**
      * {@inheritDoc}
      */
-    public function delete(ClientContract $client)
+    public function delete(ClientContract $client): void
     {
         $event      = new ClientRemoved($client);
-        $em         = $this->em;
+        $om         = $this->om;
         $dispatcher = $this->dispatcher;
 
         $dispatcher->dispatch($event);
 
-        $em->remove($client);
-        $em->flush();
+        $om->remove($client);
+        $om->flush();
     }
 
     /**
@@ -270,7 +262,7 @@ class ClientManager implements ClientManagerContract
     /**
      * {@inheritDoc}
      */
-    public function getPersonalAccessClientSecret()
+    public function getPersonalAccessClientSecret(): ?string
     {
         return $this->personalAccessClientSecret;
     }

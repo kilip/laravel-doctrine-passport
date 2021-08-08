@@ -21,7 +21,7 @@ trait IdentifiableTrait
      * @ORM\Column(type="bigint")
      * @ORM\Id
      *
-     * @var mixed|int|string|null
+     * @var int|string|null
      */
     protected $id;
 

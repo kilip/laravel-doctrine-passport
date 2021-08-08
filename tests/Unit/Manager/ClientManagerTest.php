@@ -217,10 +217,9 @@ class ClientManagerTest extends UnitTestCase
         $manager = $this->manager;
         $user    = $this->user;
         $this->configureSaveMock(false);
-        $this->configureUserRepositoryMock();
 
         $client = $manager->create(
-            'user-id',
+            $user,
             'name',
             'redirect',
             'provider',
@@ -233,49 +232,30 @@ class ClientManagerTest extends UnitTestCase
         $this->assertSame($user, $client->getUser());
     }
 
-    public function test_its_create_throws_exception_when_user_not_exist()
-    {
-        $manager = $this->manager;
-
-        $this->configureUserRepositoryMock(true);
-        $this->expectExceptionObject($ob = RuntimeException::clientUserNotFoundException('user-id'));
-        $this->expectExceptionMessage($ob->getMessage());
-
-        $manager->create(
-            'user-id',
-            'name',
-            'redirect',
-            'provider',
-            true,
-            true,
-            false
-        );
-    }
-
     public function test_it_should_creates_new_personal_access_client()
     {
         $manager    = $this->manager;
         $pacManager = $this->pacManager;
+        $user       = $this->user;
 
         $pacManager->shouldReceive('create')
             ->once()
             ->with(m::type(ModelContracts\Client::class));
 
         $this->configureSaveMock(false);
-        $this->configureUserRepositoryMock();
 
-        $client = $manager->createPersonalAccessClient('user-id', 'name', 'redirect');
+        $client = $manager->createPersonalAccessClient($user, 'name', 'redirect');
         $this->assertInstanceOf(ModelContracts\Client::class, $client);
     }
 
     public function test_it_stores_a_new_password_grant_client()
     {
         $manager = $this->manager;
+        $user    = $this->user;
 
         $this->configureSaveMock(false);
-        $this->configureUserRepositoryMock();
 
-        $client = $manager->createPasswordGrantClient('user-id', 'name', 'redirect', 'provider');
+        $client = $manager->createPasswordGrantClient($user, 'name', 'redirect', 'provider');
         $this->assertIsObject($client);
         $this->assertSame($this->user, $client->getUser());
         $this->assertSame('name', $client->getName());

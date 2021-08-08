@@ -18,11 +18,11 @@ use LaravelDoctrine\Passport\Contracts\Model\User as UserModel;
 interface UserManager
 {
     /**
-     * @param int|string|null $userIdentifier
+     * @param int|string|null $id
      *
      * @return UserModel|null
      */
-    public function find($userIdentifier): ?UserModel;
+    public function find($id): ?UserModel;
 
     /**
      * @param string $username
@@ -31,4 +31,13 @@ interface UserManager
      * @return UserModel|null
      */
     public function findAndValidateForPassport(string $username, string $password): ?UserModel;
+
+    /**
+     * @param string $username
+     * @param string $email
+     * @param string $password
+     *
+     * @return UserModel
+     */
+    public function create(string $username, string $email, string $password): UserModel;
 }

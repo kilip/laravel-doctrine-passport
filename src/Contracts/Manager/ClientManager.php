@@ -16,6 +16,7 @@ namespace LaravelDoctrine\Passport\Contracts\Manager;
 use Illuminate\Support\Collection;
 use Laravel\Passport\ClientRepository;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientContract;
+use LaravelDoctrine\Passport\Contracts\Model\User;
 
 /**
  * @see ClientRepository
@@ -80,7 +81,7 @@ interface ClientManager extends CanSaveObject
     /**
      * Store a new client.
      *
-     * @param int|string  $userId
+     * @param ?User       $user
      * @param string      $name
      * @param string      $redirect
      * @param string|null $provider
@@ -90,30 +91,30 @@ interface ClientManager extends CanSaveObject
      *
      * @return ClientContract|object
      */
-    public function create($userId, $name, $redirect, $provider = null, $personalAccess = false, $password = false, $confidential = true);
+    public function create(?User $user, string $name, string $redirect, ?string $provider = null, bool $personalAccess = false, bool $password = false, bool $confidential = true);
 
     /**
      * Store a new personal access token client.
      *
-     * @param int    $userId
+     * @param ?User  $user
      * @param string $name
      * @param string $redirect
      *
      * @return ClientContract|object
      */
-    public function createPersonalAccessClient($userId, $name, $redirect);
+    public function createPersonalAccessClient(?User $user, string $name, string $redirect);
 
     /**
      * Store a new password grant client.
      *
-     * @param int         $userId
+     * @param ?User       $user
      * @param string      $name
      * @param string      $redirect
      * @param string|null $provider
      *
      * @return ClientContract
      */
-    public function createPasswordGrantClient($userId, $name, $redirect, $provider = null);
+    public function createPasswordGrantClient(?User $user, string $name, string $redirect, ?string $provider = null): ClientContract;
 
     /**
      * Update the given client.
@@ -124,7 +125,7 @@ interface ClientManager extends CanSaveObject
      *
      * @return ClientContract
      */
-    public function update(ClientContract $client, $name, $redirect);
+    public function update(ClientContract $client, string $name, string $redirect): ClientContract;
 
     /**
      * Regenerate the client secret.
@@ -133,16 +134,16 @@ interface ClientManager extends CanSaveObject
      *
      * @return ClientContract
      */
-    public function regenerateSecret(ClientContract $client);
+    public function regenerateSecret(ClientContract $client): ClientContract;
 
     /**
      * Determine if the given client is revoked.
      *
-     * @param int $id
+     * @param int|string $id
      *
      * @return bool
      */
-    public function revoked($id);
+    public function revoked($id): bool;
 
     /**
      * Delete the given client.
@@ -151,7 +152,7 @@ interface ClientManager extends CanSaveObject
      *
      * @return void
      */
-    public function delete(ClientContract $client);
+    public function delete(ClientContract $client): void;
 
     /**
      * Get the personal access client id.
@@ -165,5 +166,5 @@ interface ClientManager extends CanSaveObject
      *
      * @return string|null
      */
-    public function getPersonalAccessClientSecret();
+    public function getPersonalAccessClientSecret(): ?string;
 }

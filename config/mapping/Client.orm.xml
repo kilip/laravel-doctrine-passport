@@ -2,7 +2,9 @@
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
 >
     <entity name="LaravelDoctrine\Passport\Model\Client" table="oauth_clients">
-        <id name="id" type="bigint"/>
+        <id name="id" type="bigint">
+            <generator strategy="IDENTITY"/>
+        </id>
         <many-to-one field="user" target-entity="LaravelDoctrine\Passport\Contracts\Model\User"/>
         <field name="name"/>
         <field name="secret" type="string" length="100" nullable="true"/>

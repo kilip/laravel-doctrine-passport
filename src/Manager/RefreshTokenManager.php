@@ -13,26 +13,35 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Manager;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Illuminate\Contracts\Events\Dispatcher;
 use Laravel\Passport\Events\RefreshTokenCreated;
 use LaravelDoctrine\Passport\Contracts\Manager\RefreshTokenManager as RefreshTokenManagerContract;
-use LaravelDoctrine\Passport\Contracts\Model\AccessToken as AccessTokenContract;
 use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContract;
 use LaravelDoctrine\Passport\Exception\RuntimeException;
+use LaravelDoctrine\Passport\Model\AccessToken;
+use LaravelDoctrine\Passport\Model\RefreshToken as RefreshTokenModel;
 
+/**
+ * @psalm-suppress UnsafeInstantiation
+ */
 class RefreshTokenManager implements RefreshTokenManagerContract
 {
     use HasRepository;
 
     private Dispatcher $dispatcher;
 
+    /**
+     * @param ObjectManager                   $om
+     * @param Dispatcher                      $dispatcher
+     * @param class-string<RefreshTokenModel> $model
+     */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        ObjectManager $om,
         Dispatcher $dispatcher,
         string $model
     ) {
-        $this->em         = $entityManager;
+        $this->om         = $om;
         $this->class      = $model;
         $this->dispatcher = $dispatcher;
     }
@@ -40,11 +49,13 @@ class RefreshTokenManager implements RefreshTokenManagerContract
     /**
      * {@inheritDoc}
      *
-     * @psalm-suppress InvalidStringClass
+     * @psalm-param object<AccessToken> $accessToken
      */
-    public function create(string $id, AccessTokenContract $accessToken, \DateTimeInterface $expiry, bool $revoked = false): object
+    public function create(string $id, $accessToken, \DateTimeInterface $expiry, bool $revoked = false): object
     {
-        $token = new $this->class($id, $accessToken, $expiry, $revoked);
+        /** @var class-string<RefreshTokenModel> $class */
+        $class = $this->class;
+        $token = new $class($id, $accessToken, $expiry, $revoked);
         \assert($token instanceof RefreshTokenContract);
         $event = new RefreshTokenCreated((string) $token->getId(), (string) $accessToken->getId());
 

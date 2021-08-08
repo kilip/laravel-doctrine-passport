@@ -7,6 +7,5 @@ parameters:
         - src/*/*/Database/Factories/*
         - src/*/*/Tests/*
     ignoreErrors:
-        - '#Method [a-zA-Z0-9\\_]+::getRepository\(\) should return#'
         - '#Call to an undefined method [a-zA-Z0-9\\_]+::giveConfig#'
 

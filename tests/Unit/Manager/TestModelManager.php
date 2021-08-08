@@ -84,8 +84,8 @@ trait TestModelManager
 
         $this->configureManager();
 
-        $this->em->shouldReceive()
-            ->getRepository($this->modelClass)
+        $this->em->shouldReceive('getRepository')
+            ->with($this->modelClass)
             ->andReturns($this->repository);
     }
 

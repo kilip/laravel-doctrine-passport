@@ -13,14 +13,10 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Model;
 
-use Doctrine\ORM\Mapping as ORM;
 use LaravelDoctrine\Passport\Contracts\Model\Client as ClientContracts;
 use LaravelDoctrine\Passport\Model\Traits\ClientTrait;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="oauth_clients")
- *
  * @psalm-suppress MissingConstructor
  * @psalm-suppress PropertyNotSetInConstructor
  */

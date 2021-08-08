@@ -41,7 +41,9 @@ class UserRepository implements UserRepositoryInterface
         $userEntity = null;
         $user       =  $manager->findAndValidateForPassport($username, $password);
         if (null !== $user) {
-            $userEntity = new UserEntity($user->getPassportUserId());
+            /** @var int|string $id */
+            $id         = $user->getAuthIdentifier();
+            $userEntity = new UserEntity($id);
         }
 
         return $userEntity;

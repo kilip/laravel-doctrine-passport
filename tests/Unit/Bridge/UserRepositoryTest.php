@@ -54,7 +54,7 @@ class UserRepositoryTest extends UnitTestCase
             ->once()
             ->with('username', 'password')
             ->andReturn($user);
-        $user->shouldReceive('getPassportUserId')
+        $user->shouldReceive('getAuthIdentifier')
             ->once()->andReturn('user-id');
         $this->assertInstanceOf(
             UserEntity::class,

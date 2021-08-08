@@ -11,15 +11,8 @@
 
 declare(strict_types=1);
 
-namespace Tests\LaravelDoctrine\Passport\Fixtures\Providers;
+namespace LaravelDoctrine\Passport\Testing\Concerns;
 
-use Illuminate\Support\ServiceProvider;
-use Laravel\Passport\Passport;
-
-class TestServiceProvider extends ServiceProvider
+class InteractsWithDatabase
 {
-    public function boot()
-    {
-        Passport::routes();
-    }
 }

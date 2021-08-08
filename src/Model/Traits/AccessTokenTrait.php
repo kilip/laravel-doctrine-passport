@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelDoctrine\Passport\Model\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
+use Laravel\Passport\Passport;
 use LaravelDoctrine\Extensions\Timestamps\Timestamps;
 use LaravelDoctrine\Passport\Contracts\Model\Client;
 use LaravelDoctrine\Passport\Contracts\Model\User;
@@ -63,5 +64,56 @@ trait AccessTokenTrait
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    /**
+     * @param string $scope
+     *
+     * @return bool
+     *
+     * TODO: move this into another layer
+     */
+    public function can(string $scope): bool
+    {
+        if (null === $this->scopes || \in_array('*', $this->scopes, true)) {
+            return true;
+        }
+        $scopes = Passport::$withInheritedScopes
+            ? $this->resolveInheritedScopes($scope)
+            : [$scope];
+
+        /** @psalm-param list<array-key> $scopes */
+        foreach ($scopes as $scope) {
+            if (\array_key_exists($scope, array_flip($this->scopes))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Resolve all possible scopes.
+     *
+     * @param string $scope
+     *
+     * @return array
+     * @psalm-return list<string>
+     *
+     * TODO: move this into another layer
+     */
+    protected function resolveInheritedScopes(string $scope): array
+    {
+        $parts = explode(':', $scope);
+
+        $partsCount = \count($parts);
+
+        $scopes = [];
+
+        for ($i = 1; $i <= $partsCount; ++$i) {
+            $scopes[] = implode(':', \array_slice($parts, 0, $i));
+        }
+
+        return $scopes;
     }
 }

@@ -13,9 +13,7 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Manager;
 
-use Carbon\Carbon;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\Persistence\ObjectManager;
 use Illuminate\Support\Collection;
 use LaravelDoctrine\Passport\Contracts\Manager\AccessTokenManager as AccessTokenManagerContracts;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
@@ -25,10 +23,10 @@ class AccessTokenManager implements AccessTokenManagerContracts
     use HasRepository;
 
     public function __construct(
-        EntityManagerInterface $objectManager,
+        ObjectManager $objectManager,
         string $model
     ) {
-        $this->em    = $objectManager;
+        $this->om    = $objectManager;
         $this->class = $model;
     }
 
@@ -39,9 +37,9 @@ class AccessTokenManager implements AccessTokenManagerContracts
      * @psalm-suppress InvalidStringClass
      * @psalm-suppress MoreSpecificReturnType
      */
-    public function create(string $id, ModelContracts\Client $client, ?ModelContracts\User $user, ?string $name = null, ?array $scopes = null, bool $revoked = false): ModelContracts\AccessToken
+    public function create(string $id, ModelContracts\Client $client, ?ModelContracts\User $user, ?string $name = null, ?array $scopes = null, bool $revoked = false)
     {
-        return new $this->class(
+        $token = new $this->class(
             $id,
             $client,
             $user,
@@ -49,6 +47,9 @@ class AccessTokenManager implements AccessTokenManagerContracts
             $scopes,
             $revoked
         );
+        $this->save($token);
+
+        return $token;
     }
 
     /**
@@ -115,28 +116,5 @@ class AccessTokenManager implements AccessTokenManagerContracts
         }
 
         return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @throws NonUniqueResultException
-     * @psalm-suppress MixedReturnStatement
-     * @psalm-suppress MixedInferredReturnType
-     */
-    public function findValidToken(ModelContracts\User $user, ModelContracts\Client $client): ?ModelContracts\AccessToken
-    {
-        $qb = $this->getRepository()->createQueryBuilder('t');
-        $qb->where('t.revoked = :revoked')
-            ->andWhere('t.expiresAt > :now')
-            ->andWhere('t.user = :user')
-            ->andWhere('t.client = :client')
-            ->orderBy('t.expiresAt', 'DESC')
-            ->setParameter('revoked', false)
-            ->setParameter('now', Carbon::now()->toDateTime())
-            ->setParameter('user', $user->getPassportUserId())
-            ->setParameter('client', $client->getId());
-
-        return $qb->getQuery()->getOneOrNullResult();
     }
 }

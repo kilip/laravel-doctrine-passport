@@ -13,54 +13,31 @@ declare(strict_types=1);
 
 namespace Tests\LaravelDoctrine\Passport\Feature;
 
-use Illuminate\Config\Repository;
-use Illuminate\Foundation\Application;
 use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
 use LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider;
 use LaravelDoctrine\ORM\DoctrineServiceProvider;
 use LaravelDoctrine\Passport\Providers\PassportServiceProvider;
 use Mockery as m;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Tests\LaravelDoctrine\Passport\Fixtures\Model\User;
+use Tests\LaravelDoctrine\Passport\Fixtures\TestServiceProvider;
 
 class FeatureTestCase extends BaseTestCase
 {
-    protected function getPackageProviders($app)
+    /** {@inheritDoc} */
+    protected function getPackageProviders($app): array
     {
         return [
             GedmoExtensionsServiceProvider::class,
             DoctrineServiceProvider::class,
             LaravelPassportServiceProvider::class,
             PassportServiceProvider::class,
+            TestServiceProvider::class,
         ];
     }
 
     protected function tearDown(): void
     {
-        if ($container = m::getContainer()) {
-            $this->addToAssertionCount($container->mockery_getExpectationCount());
-        }
         m::close();
         parent::tearDown();
-    }
-
-    /**
-     * @param Application $app
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        /** @var Repository $config */
-        $config = $app['config'];
-
-        $config->set('doctrine.managers.default.mappings', array_merge(
-            $config->get('doctrine.managers.default.mappings', []), [
-                'Tests\\LaravelDoctrine\\Passport\\Fixtures\\Model' => [
-                    'type' => 'annotation',
-                    'dir' => __DIR__.'/../Fixtures/Model',
-                ],
-            ]
-        ));
-        $config->set('doctrine.managers.default.paths', []);
-        $config->set('doctrine_passport.models.user', User::class);
     }
 }

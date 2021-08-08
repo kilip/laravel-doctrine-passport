@@ -14,6 +14,7 @@ declare(strict_types=1);
 return [
     'load_model' => true,
     'entity_manager_name' => 'default',
+    'guard_driver_name' => 'doctrine_passport',
     'models' => [
         'user' => null,
         'access_token' => LaravelDoctrine\Passport\Model\AccessToken::class,
@@ -28,5 +29,6 @@ return [
         'client' => LaravelDoctrine\Passport\Manager\ClientManager::class,
         'refresh_token' => LaravelDoctrine\Passport\Manager\RefreshTokenManager::class,
         'personal_access_client' => LaravelDoctrine\Passport\Manager\PersonalAccessClientManager::class,
+        'user' => null,
     ],
 ];

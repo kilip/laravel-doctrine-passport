@@ -13,10 +13,8 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Contracts\Model;
 
-interface User
+use Illuminate\Contracts\Auth\Authenticatable;
+
+interface User extends Authenticatable
 {
-    /**
-     * @return int|string
-     */
-    public function getPassportUserId();
 }

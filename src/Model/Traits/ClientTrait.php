@@ -60,7 +60,7 @@ trait ClientTrait
     protected array $grantTypes = [];
 
     public function __construct(
-        User $user,
+        ?User $user,
         string $name,
         ?string $secret,
         ?string $provider,
@@ -77,6 +77,12 @@ trait ClientTrait
         $this->personalAccessClient = $personalAccessClient;
         $this->passwordClient       = $passwordClient;
         $this->revoked              = $revoked;
+        $this->grantTypes           = [
+            'authorization_code',
+            'personal_access',
+            'password',
+            'client_credentials',
+        ];
     }
 
     /**

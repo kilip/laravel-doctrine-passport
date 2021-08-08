@@ -16,9 +16,9 @@ namespace LaravelDoctrine\Passport\Bridge;
 use Illuminate\Contracts\Events\Dispatcher;
 use Laravel\Passport\Bridge\AccessToken as AccessTokenEntity;
 use Laravel\Passport\Events\AccessTokenCreated;
-use LaravelDoctrine\Passport\Contracts\Manager\AccessTokenManager as AccessTokenManager;
-use LaravelDoctrine\Passport\Contracts\Manager\ClientManager as ClientManager;
-use LaravelDoctrine\Passport\Contracts\Manager\UserManager as UserManager;
+use LaravelDoctrine\Passport\Contracts\Manager\AccessTokenManager;
+use LaravelDoctrine\Passport\Contracts\Manager\ClientManager;
+use LaravelDoctrine\Passport\Contracts\Manager\UserManager;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
@@ -76,7 +76,7 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
             $this->scopesToArray($accessTokenEntity->getScopes())
         );
 
-        $event = new AccessTokenCreated($token->getId(), $user->getPassportUserId(), (string) $client->getId());
+        $event = new AccessTokenCreated($token->getId(), $user->getAuthIdentifier(), (string) $client->getId());
         $this->events->dispatch($event);
     }
 

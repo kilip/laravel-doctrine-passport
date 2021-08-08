@@ -10,6 +10,12 @@
         <directory name="src" />
         <ignoreFiles>
             <directory name="vendor" />
+            <directory name="tests"/>
         </ignoreFiles>
     </projectFiles>
+    <issueHandlers>
+        <MissingClosureParamType errorLevel="suppress"/>
+        <MissingClosureReturnType errorLevel="suppress"/>
+        <PossiblyUndefinedMethod errorLevel="suppress"/>
+    </issueHandlers>
 </psalm>

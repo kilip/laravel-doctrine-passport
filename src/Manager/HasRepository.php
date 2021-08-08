@@ -13,33 +13,36 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Manager;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectRepository;
 
 trait HasRepository
 {
-    protected EntityManagerInterface $em;
+    protected ObjectManager $om;
 
     /**
      * @var string
+     * @psalm-param class-string
      */
-    protected string $class;
+    protected $class;
 
+    /**
+     * @param object $entity
+     * @param bool   $andFlush
+     */
     public function save(object $entity, bool $andFlush = true): void
     {
-        $this->em->persist($entity);
+        $this->om->persist($entity);
         if ($andFlush) {
-            $this->em->flush();
+            $this->om->flush();
         }
     }
 
     /**
-     * @return EntityRepository the repository class
-     * @psalm-return EntityRepository
-     * @psalm-suppress ArgumentTypeCoercion
+     * @return ObjectRepository the repository class
      */
-    public function getRepository()
+    public function getRepository(): ObjectRepository
     {
-        return $this->em->getRepository($this->class);
+        return $this->om->getRepository($this->class);
     }
 }

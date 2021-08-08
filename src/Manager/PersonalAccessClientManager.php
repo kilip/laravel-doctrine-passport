@@ -13,33 +13,38 @@ declare(strict_types=1);
 
 namespace LaravelDoctrine\Passport\Manager;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use LaravelDoctrine\Passport\Contracts\Manager\PersonalAccessClientManager as PersonalAccessClientManagerContract;
+use LaravelDoctrine\Passport\Model\PersonalAccessClient;
 
+/**
+ * @psalm-suppress UnsafeInstantiation
+ */
 class PersonalAccessClientManager implements PersonalAccessClientManagerContract
 {
     use HasRepository;
 
     /**
-     * @param EntityManagerInterface $em
-     * @param string                 $model
+     * @param ObjectManager $om
+     * @param string        $model
+     * @psalm-param class-string<PersonalAccessClient> $model
      */
     public function __construct(
-        EntityManagerInterface $em,
+        ObjectManager $om,
         string $model
     ) {
-        $this->em    = $em;
+        $this->om    = $om;
         $this->class = $model;
     }
 
     /**
      * {@inheritDoc}
-     *
-     * @psalm-suppress InvalidStringClass
      */
     public function create($client): void
     {
-        $pac = new $this->class($client);
+        /** @var class-string<PersonalAccessClient> $class */
+        $class = $this->class;
+        $pac   = new $class($client);
         $this->save($pac);
     }
 }

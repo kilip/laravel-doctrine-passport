@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Tests\LaravelDoctrine\Passport\Unit\Manager;
 
-use Doctrine\ORM\AbstractQuery;
-use Doctrine\ORM\QueryBuilder;
 use Illuminate\Support\Collection;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Manager\AccessTokenManager;
@@ -40,7 +38,18 @@ class AccessTokenManagerTest extends UnitTestCase
 
     public function test_it_should_create_new_token()
     {
-        $token = $this->manager->create(
+        $om      = $this->em;
+        $manager = $this->manager;
+        $om
+            ->shouldReceive()
+            ->persist(m::type(Model\AccessToken::class))
+            ->once();
+        $om
+            ->shouldReceive()
+            ->flush()
+            ->once();
+
+        $token = $manager->create(
             'id',
             $this->client,
             $this->user,
@@ -192,59 +201,5 @@ class AccessTokenManagerTest extends UnitTestCase
             ->once();
 
         $manager->save($token);
-    }
-
-    public function test_it_should_find_valid_token_with_user_and_client_instance()
-    {
-        $repository       = $this->repository;
-        $manager          = $this->manager;
-        $userId           = 'user-id';
-        $clientId         = 'client-id';
-        $qb               = m::mock(QueryBuilder::class);
-        $user             = m::mock(ModelContracts\User::class);
-        $client           = m::mock(ModelContracts\Client::class);
-        $token            = m::mock(ModelContracts\AccessToken::class);
-        $query            = m::mock(AbstractQuery::class);
-
-        $user->shouldReceive()->getPassportUserId()->once()->andReturns($userId);
-        $client->shouldReceive()->getId()->once()->andReturns($clientId);
-
-        $repository->shouldReceive()
-            ->createQueryBuilder('t')
-            ->once()->andReturns($qb);
-
-        $qb->shouldReceive()
-            ->where('t.revoked = :revoked')
-            ->once()->andReturn($qb);
-
-        $qb->shouldReceive()->andWhere('t.expiresAt > :now')
-            ->once()->andReturn($qb);
-
-        $qb->shouldReceive()->andWhere('t.user = :user')
-            ->once()->andReturn($qb);
-        $qb->shouldReceive()->andWhere('t.client = :client')
-            ->once()->andReturn($qb);
-
-        $qb->shouldReceive()
-            ->orderBy('t.expiresAt', 'DESC')
-            ->once()->andReturn($qb);
-
-        $qb->shouldReceive('setParameter')
-            ->with('revoked', false)->andReturn($qb);
-        $qb->shouldReceive('setParameter')
-            ->with('now', m::type(\DateTimeInterface::class))
-            ->andReturn($qb);
-        $qb->shouldReceive()->setParameter('user', $userId)->andReturnSelf();
-        $qb->shouldReceive()->setParameter('client', $clientId)->andReturnSelf();
-
-        $qb->shouldReceive()
-            ->getQuery()
-            ->once()->andReturn($query);
-
-        $query->shouldReceive()
-            ->getOneOrNullResult()
-            ->once()->andReturn($token);
-
-        $manager->findValidToken($user, $client);
     }
 }

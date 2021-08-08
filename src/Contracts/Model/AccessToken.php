@@ -15,4 +15,5 @@ namespace LaravelDoctrine\Passport\Contracts\Model;
 
 interface AccessToken extends Identifiable, Revokable, Scopable, HasClient, HasUser
 {
+    public function can(string $scope): bool;
 }

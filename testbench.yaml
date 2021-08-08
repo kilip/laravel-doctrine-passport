@@ -1,9 +1,9 @@
 env:
   - DB_CONNECTION="sqlite"
-  - DB_DATABASE="./build/db.sqlite
+  - APP_KEY=base64:0yN+TgqaH7Nk3MXv+2+Qax+u1R+zsrBM7cVeWOmL2B0=
 providers:
   - LaravelDoctrine\Extensions\GedmoExtensionsServiceProvider
   - LaravelDoctrine\ORM\DoctrineServiceProvider
   - Laravel\Passport\PassportServiceProvider
   - LaravelDoctrine\Passport\Providers\PassportServiceProvider
-  - Tests\LaravelDoctrine\Passport\Fixtures\Providers\TestServiceProvider
+  - Tests\LaravelDoctrine\Passport\Fixtures\TestServiceProvider

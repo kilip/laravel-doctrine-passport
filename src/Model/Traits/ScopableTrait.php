@@ -19,6 +19,7 @@ trait ScopableTrait
 {
     /**
      * @ORM\Column(type="array", nullable=true)
+     * @psalm-param null|list<string>
      */
     protected ?array $scopes = null;
 

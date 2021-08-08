@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\LaravelDoctrine\Passport\Feature;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
@@ -64,7 +65,7 @@ class PassportServiceProviderFeatureTest extends FeatureTestCase
     {
         $this->assertInstanceOf(
             ClassMetadata::class,
-            EntityManager::getClassMetadata($model)
+            $this->app->make(EntityManagerInterface::class)->getClassMetadata($model)
         );
     }
 
@@ -88,7 +89,7 @@ class PassportServiceProviderFeatureTest extends FeatureTestCase
     {
         $this->assertInstanceOf(
             $concrete,
-            app()->make($abstract)
+            app($abstract)
         );
     }
 
@@ -101,5 +102,30 @@ class PassportServiceProviderFeatureTest extends FeatureTestCase
             [ManagerContracts\ClientManager::class, Managers\ClientManager::class],
             [ManagerContracts\RefreshTokenManager::class, Managers\RefreshTokenManager::class],
         ];
+    }
+
+    public function test_it_should_extends_laravel_passport_services()
+    {
+        $app     = $this->app;
+        $extends = [
+            'AccessTokenRepository',
+            'AuthCodeRepository',
+            'ClientRepository',
+            'RefreshTokenRepository',
+            'UserRepository',
+        ];
+        foreach ($extends as $className) {
+            $this->assertInstanceOf(
+                'LaravelDoctrine\\Passport\\Bridge\\'.$className,
+                $app->make('Laravel\\Passport\\Bridge\\'.$className)
+            );
+        }
+    }
+
+    public function test_it_should_creates_foo()
+    {
+        $repo = EntityManager::getRepository(ModelContracts\AuthCode::class);
+
+        $this->assertIsObject($repo);
     }
 }

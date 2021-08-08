@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace LaravelDoctrine\Passport\Contracts\Manager;
 
 use Laravel\Passport\RefreshTokenRepository;
+use LaravelDoctrine\Passport\Contracts\Model\AccessToken;
 use LaravelDoctrine\Passport\Contracts\Model\RefreshToken as RefreshTokenContract;
 
 /**
@@ -24,11 +25,14 @@ interface RefreshTokenManager extends CanSaveObject
     /**
      * Creates a new refresh token.
      *
+     * @param string             $id
+     * @param object|AccessToken $accessToken
+     *
      * @return object|RefreshTokenContract
      */
     public function create(
         string $id,
-        \LaravelDoctrine\Passport\Contracts\Model\AccessToken $accessToken,
+        $accessToken,
         \DateTimeInterface $expiry,
         bool $revoked = false
     ): object;

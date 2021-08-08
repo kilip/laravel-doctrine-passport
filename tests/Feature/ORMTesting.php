@@ -41,6 +41,6 @@ trait ORMTesting
      */
     protected function getIlluminateRegistry()
     {
-        return app()->get('registry');
+        return app()->make('registry');
     }
 }

@@ -24,7 +24,7 @@ class ClientRepository implements ClientRepositoryInterface
     private ClientManager $clientManager;
 
     public function __construct(
-        ClientManager $clientManager,
+        ClientManager $clientManager
     ) {
         $this->clientManager = $clientManager;
     }

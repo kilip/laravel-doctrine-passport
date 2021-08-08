@@ -25,6 +25,13 @@ trait ClientTrait
     use Timestamps;
 
     /**
+     * The temporary plain-text client secret.
+     *
+     * @var string|null
+     */
+    public ?string $plainSecret;
+
+    /**
      * @ORM\Column(type="string")
      */
     protected string $name;
@@ -83,6 +90,11 @@ trait ClientTrait
             'password',
             'client_credentials',
         ];
+    }
+
+    public function toArray(): array
+    {
+        return [];
     }
 
     /**

@@ -61,6 +61,13 @@ interface AccessTokenManager extends CanSaveObject
     public function findForUser(string $id, $userId);
 
     /**
+     * @param int|string|null $userId
+     *
+     * @return Collection
+     */
+    public function findValidTokenForUser($userId): Collection;
+
+    /**
      * Get the token instances for the given user ID.
      *
      * @param string|int $userId

@@ -18,7 +18,6 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Laravel\Passport\Passport;
 use Laravel\Passport\PassportServiceProvider as LaravelPassportServiceProvider;
 use LaravelDoctrine\Extensions\Timestamps\TimestampableExtension;
-use LaravelDoctrine\ORM\Facades\EntityManager;
 use LaravelDoctrine\Passport\Contracts\Manager as ManagerContracts;
 use LaravelDoctrine\Passport\Contracts\Model as ModelContracts;
 use LaravelDoctrine\Passport\Manager as Managers;
@@ -104,28 +103,52 @@ class PassportServiceProviderFeatureTest extends FeatureTestCase
         ];
     }
 
-    public function test_it_should_extends_laravel_passport_services()
+    /**
+     * @dataProvider getExtendBridges
+     * @dataProvider getExtendControllers
+     */
+    public function test_it_should_extends_laravel_repository(string $origin, string $target, string $className)
     {
         $app     = $this->app;
-        $extends = [
-            'AccessTokenRepository',
-            'AuthCodeRepository',
-            'ClientRepository',
-            'RefreshTokenRepository',
-            'UserRepository',
-        ];
-        foreach ($extends as $className) {
-            $this->assertInstanceOf(
-                'LaravelDoctrine\\Passport\\Bridge\\'.$className,
-                $app->make('Laravel\\Passport\\Bridge\\'.$className)
-            );
-        }
+        /** @psalm-param  class-string $originClass */
+        $originClass = $origin.'\\'.$className;
+        /** @psalm-param  class-string $targetClass */
+        $targetClass = $target.'\\'.$className;
+        $this->assertInstanceOf(
+            $targetClass,
+            $app->make($originClass)
+        );
     }
 
-    public function test_it_should_creates_foo()
+    public function getExtendBridges(): array
     {
-        $repo = EntityManager::getRepository(ModelContracts\AuthCode::class);
+        $from   = 'Laravel\\Passport\\Bridge';
+        $target = 'LaravelDoctrine\\Passport\\Bridge';
 
-        $this->assertIsObject($repo);
+        return [
+            [$from, $target, 'AccessTokenRepository'],
+            [$from, $target, 'AuthCodeRepository'],
+            [$from, $target, 'ClientRepository'],
+            [$from, $target, 'RefreshTokenRepository'],
+            [$from, $target, 'UserRepository'],
+        ];
+    }
+
+    public function getExtendControllers(): array
+    {
+        $from   = 'Laravel\\Passport\\Http\\Controllers';
+        $target = 'LaravelDoctrine\\Passport\\Bridge\\Controllers';
+
+        return [
+            // [ $from, $target, 'AccessTokenController' ],
+            // [ $from, $target, 'ApproveAuthorizationController' ],
+            // [ $from, $target, 'AuthorizationController' ],
+            [$from, $target, 'AuthorizedAccessTokenController'],
+            // [ $from, $target, 'ClientController' ],
+            // [ $from, $target, 'DenyAuthorizationController' ],
+            // [ $from, $target, 'PersonalAccessTokenController' ],
+            // [ $from, $target, 'ScopeController' ],
+            // [ $from, $target, 'TransientTokenController' ],
+        ];
     }
 }

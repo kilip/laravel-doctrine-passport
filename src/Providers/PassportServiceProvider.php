@@ -175,6 +175,12 @@ class PassportServiceProvider extends ServiceProvider
         $this->app->extend(ClientCommand::class, function ($service, Application $app) {
             return $app->make(DoctrineBridge\Console\ClientCommand::class);
         });
+
+        $this->app->extend(
+            BasePassport\Http\Controllers\AuthorizedAccessTokenController::class,
+            function ($service, Application $app) {
+                return $app->make(DoctrineBridge\Controllers\AuthorizedAccessTokenController::class);
+            });
     }
 
     /**

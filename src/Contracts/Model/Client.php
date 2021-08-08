@@ -71,4 +71,9 @@ interface Client extends Identifiable, Revokable, HasUser
      * @return bool
      */
     public function isPasswordClient(): bool;
+
+    /**
+     * @return array
+     */
+    public function toArray(): array;
 }

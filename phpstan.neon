@@ -8,4 +8,5 @@ parameters:
         - src/*/*/Tests/*
     ignoreErrors:
         - '#Call to an undefined method [a-zA-Z0-9\\_]+::giveConfig#'
-
+        - '#undefined property [a-zA-Z0-9\\_]+::\$name#'
+        - '#undefined property [a-zA-Z0-9\\_]+::\$redirect#'

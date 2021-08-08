@@ -86,6 +86,20 @@ class AccessTokenManager implements AccessTokenManagerContracts
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function findValidTokenForUser($userId): Collection
+    {
+        $tokens = $this->getRepository()->findBy([
+            'user' => $userId,
+            'revoked' => false,
+            'firstParty' => false,
+        ]);
+
+        return new Collection($tokens);
+    }
+
+    /**
      * @psalm-suppress MixedReturnStatement
      * @psalm-suppress MixedInferredReturnType
      */

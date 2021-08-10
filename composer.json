@@ -1,5 +1,5 @@
 {
-    "name": "kilip/laravel-doctrine-passport",
+    "name": "eoffice/laravel-doctrine-passport",
     "description": "Laravel Passport Integration to Doctrine ORM",
     "type": "library",
     "license": "MIT",

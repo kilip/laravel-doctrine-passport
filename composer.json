@@ -1,5 +1,5 @@
 {
-    "name": "laravel-doctrine/passport",
+    "name": "kilip/laravel-doctrine-passport",
     "description": "Laravel Passport Integration to Doctrine ORM",
     "type": "library",
     "license": "MIT",
@@ -42,17 +42,11 @@
     "scripts": {
         "coverage": "@php ./vendor/bin/phpunit --coverage-text --coverage-html=build/logs/html"
     },
-    "repositories": [
-        {
-            "type": "github",
-            "url": "https://github.com/kilip/laravel-doctrine-orm"
-        }
-    ],
     "require": {
         "php": "^7.4|^8.0",
         "gedmo/doctrine-extensions": "^3.1",
         "laravel-doctrine/extensions": "^1.4",
-        "laravel-doctrine/orm": "dev-test as 1.7",
+        "eoffice/laravel-doctrine-orm": "dev-patch as 1.7",
         "laravel/passport": "^9.0|^10.0",
         "phpunit/phpunit": "^9.5"
     },
